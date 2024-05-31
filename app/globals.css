@@ -2,32 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
+@layer {
+   @font-face {
+      font-family: 'kalamehThin100';
+      src: url('../assets/fonts/Kalameh-Thin100.ttf') format('truetype');
+   }
+   @font-face {
+      font-family: 'kalamehExtraLight200';
+      src: url('../assets/fonts/Kalameh-ExtraLight200.ttf') format('truetype');
+   }
+   @font-face {
+      font-family: 'kalamehLight300';
+      src: url('../assets/fonts/Kalameh-Light300.ttf') format('truetype');
+   }
+   @font-face {
+      font-family: 'kalamehRegular400';
+      src: url('../assets/fonts/Kalameh-Regular400.ttf') format('truetype');
+   }
+   @font-face {
+      font-family: 'kalamehMedium500';
+      src: url('../assets/fonts/Kalameh-Medium500.ttf') format('truetype');
+   }
+   @font-face {
+      font-family: 'kalamehSemiBold600';
+      src: url('../assets/fonts/Kalameh-SemiBold600.ttf') format('truetype');
+   }
+   @font-face {
+      font-family: 'kalamehBold700';
+      src: url('../assets/fonts/Kalameh-Bold700.ttf') format('truetype');
+   }
+   @font-face {
+      font-family: 'kalamehExtraBold800';
+      src: url('../assets/fonts/Kalameh-ExtraBold800.ttf') format('truetype');
+   }
+   @font-face {
+      font-family: 'kalamehBlack900';
+      src: url('../assets/fonts/Kalameh-Black900.ttf') format('truetype');
+   }
+   @font-face {
+      font-family: 'DanaFaNum';
+      src: url('../assets/fonts/DanaFaNum-Regular.ttf') format('truetype');
+   }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
+   html {
+      scroll-behavior: smooth;
+   }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+   @media only screen and (max-width: 900px) {
+      * {
+         cursor: default !important;
+      }
+   }
 }
