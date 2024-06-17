@@ -14,7 +14,6 @@ function VisitDetailModal({ showDetailModal, setShowDetailModal }) {
       <Dialog
          open={showDetailModal}
          onClose={() => setShowDetailModal(false)}
-         dir="rtl"
          fullWidth
          maxWidth="md"
          sx={{ '& > div': { '& > div': { backgroundColor: 'transparent', boxShadow: 'none' } } }}

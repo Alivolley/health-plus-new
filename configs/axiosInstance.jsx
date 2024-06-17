@@ -1,18 +1,18 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-globals */
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import { deleteCookie, getCookie, setCookie } from 'cookies-next';
 import toast from 'react-hot-toast';
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 const axiosInstance = axios.create({
-   baseURL: `${baseURL}api/`,
+   baseURL,
 });
 
 axiosInstance.interceptors.request.use(
    config => {
-      const accessToken = Cookies.get('roadGraph_accessToken');
+      const accessToken = getCookie('healthPlus_accessToken');
 
       if (accessToken) {
          config.headers.Authorization = `Bearer ${accessToken}`;
@@ -25,39 +25,39 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
    res => {
-      if (res?.data?.detail) {
-         toast.success(res?.data?.detail);
+      if (res?.data?.message || res?.data?.detail) {
+         toast.success(res?.data?.message || res?.data?.detail);
       }
 
       return res;
    },
    async error => {
       console.log(error);
-      const refreshToken = Cookies.get('roadGraph_refreshToken');
+      const refreshToken = getCookie('healthPlus_refreshToken');
       const originalReq = error.config;
 
-      if (error?.response?.status === 401) {
+      if (error?.response?.data?.detail === 'Given token not valid for any token type') {
          // access expired
          if (refreshToken) {
-            const res = await axiosInstance.post('accounts/token/refresh/', {
+            const res = await axiosInstance.post('/account/refreshToken', {
                refresh: refreshToken,
             });
-            Cookies.set('roadGraph_accessToken', res.data.access, { expires: 365 });
+            setCookie('healthPlus_accessToken', res.data.access, { maxAge: 60 * 60 * 24 * 365 });
             originalReq.headers.Authorization = `Bearer ${res.data.access}`;
             return axiosInstance(originalReq);
          }
-         Cookies.remove('roadGraph_accessToken');
-         Cookies.remove('roadGraph_refreshToken');
-         Cookies.remove('roadGraph_isLogin');
+         deleteCookie('healthPlus_accessToken');
+         deleteCookie('healthPlus_refreshToken');
+         deleteCookie('healthPlus_isLogin');
          location.href = '/login';
-      } else if (error?.response?.status === 410) {
+      } else if (error?.response?.data?.detail === 'Token is invalid or expired') {
          // refresh expired
-         Cookies.remove('roadGraph_accessToken');
-         Cookies.remove('roadGraph_refreshToken');
-         Cookies.remove('roadGraph_isLogin');
+         deleteCookie('healthPlus_accessToken');
+         deleteCookie('healthPlus_refreshToken');
+         deleteCookie('healthPlus_isLogin');
          location.href = '/login';
-      } else if (error?.response?.data?.detail) {
-         toast.error(error?.response?.data?.detail);
+      } else if (error?.response?.data?.message || error?.response?.data?.detail) {
+         toast.error(error?.response?.data?.message || error?.response?.data?.detail);
       }
 
       return Promise.reject(error);

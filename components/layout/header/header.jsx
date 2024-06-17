@@ -10,6 +10,10 @@ import { Button, Fab, IconButton } from '@mui/material';
 import { CiSearch } from 'react-icons/ci';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import { Category, User } from 'iconsax-react';
+import { RiUserLine } from 'react-icons/ri';
+
+// Redux
+import { useSelector } from 'react-redux';
 
 // Assets
 import logoPic from '@/assets/images/logo.png';
@@ -19,11 +23,14 @@ import HeaderStyle from './header.style';
 
 // Components
 import MobileMenu from '../mobile-menu/mobile-menu';
+import LoginModal from '@/components/template/login-modal/login-modal';
 
 function Header() {
    const [showMobileMenu, setShowMobileMenu] = useState(false);
+   const [showLoginModal, setShowLoginModal] = useState(false);
 
    const pathname = usePathname();
+   const isLogin = useSelector(state => state?.loginStatusSlice);
 
    const formSubmitHandler = e => {
       e.preventDefault();
@@ -203,7 +210,11 @@ function Header() {
                   </Link>
                </div>
                <div className="customMd:hidden">
-                  <Fab color="primary" sx={{ width: '21px', height: '21px', borderRadius: '6px' }}>
+                  <Fab
+                     color="primary"
+                     sx={{ width: '21px', height: '21px', borderRadius: '6px' }}
+                     onClick={() => setShowLoginModal(true)}
+                  >
                      <User size="15" color="#FFf" />
                   </Fab>
                </div>
@@ -223,7 +234,24 @@ function Header() {
                      />
                   </form>
 
-                  <Link href="/">
+                  {!isLogin ? (
+                     <Link href="/">
+                        <Button
+                           variant="contained"
+                           sx={{
+                              color: 'white',
+                              paddingX: '16px',
+                              height: '34px',
+                              borderRadius: '16px',
+                              fontSize: '12px',
+                           }}
+                           onClick={() => setShowLoginModal(true)}
+                           startIcon={<RiUserLine className="!text-eighteen" />}
+                        >
+                           حساب کاربری من
+                        </Button>
+                     </Link>
+                  ) : (
                      <Button
                         variant="contained"
                         sx={{
@@ -234,12 +262,13 @@ function Header() {
                            fontSize: '12px',
                            gap: '7.5px',
                         }}
+                        onClick={() => setShowLoginModal(true)}
                      >
                         ورود
                         <p>|</p>
                         ثبت نام
                      </Button>
-                  </Link>
+                  )}
                </div>
             </div>
             <form
@@ -257,6 +286,7 @@ function Header() {
             </form>
          </div>
          <MobileMenu open={showMobileMenu} onClose={() => setShowMobileMenu(false)} />
+         <LoginModal open={showLoginModal} onClose={() => setShowLoginModal(false)} />
       </HeaderStyle>
    );
 }

@@ -3,7 +3,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { hasCookie } from 'cookies-next';
 
-const isLogin = hasCookie('yalfan_isLogin');
+const isLogin = hasCookie('healthPlus_isLogin');
 
 const loginStatusSlice = createSlice({
    name: 'loginStatusSlice',

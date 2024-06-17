@@ -19,6 +19,7 @@
     "axios": "^1.7.2",
     "cookies-next": "^4.2.1",
     "iconsax-react": "^0.0.8",
+    "mui-one-time-password-input": "^2.0.2",
     "next": "14.2.3",
     "next-nprogress-bar": "^2.3.12",
     "react": "^18",

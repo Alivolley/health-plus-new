@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 
 // MUI
@@ -56,7 +58,7 @@ function MedicalAdviceAside({ onClose }) {
          <div className="flex items-center justify-between">
             <div className="flex items-center gap-[10px]">
                <BsSliders color="#2ED7FE" size="26px" className="rotate-180" />
-               <p className="font-kalamehSemiBold600 text-xl leading-4 text-textColor1">فیلترها</p>
+               <p className="font-kalamehSemiBold600 text-xl leading-4 text-textColor1">فیلتر ها</p>
             </div>
             {onClose && (
                <IconButton

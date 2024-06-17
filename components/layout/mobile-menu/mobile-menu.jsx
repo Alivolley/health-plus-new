@@ -23,7 +23,6 @@ function MobileMenu({ open, onClose }) {
          anchor="left"
          open={open}
          onClose={onClose}
-         dir="rtl"
          sx={{
             '.MuiPaper-root': {
                borderTopRightRadius: '20px',

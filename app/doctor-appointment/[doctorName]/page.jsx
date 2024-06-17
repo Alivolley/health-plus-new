@@ -671,13 +671,13 @@ function DoctorAppointment() {
             </div>
          </div>
 
-         <Dialog open={showFilterMobile} onClose={() => setShowFilterMobile(false)} dir="rtl" top>
+         <Dialog open={showFilterMobile} onClose={() => setShowFilterMobile(false)} top>
             <div className="rounded-10">
                <MedicalAdviceAside onClose={() => setShowFilterMobile(false)} />
             </div>
          </Dialog>
 
-         <Dialog open={showAboutDoctorModal} onClose={() => setShowAboutDoctorModal(false)} dir="rtl" top>
+         <Dialog open={showAboutDoctorModal} onClose={() => setShowAboutDoctorModal(false)} top>
             <div className="rounded-10 p-[30px]">
                <div className="flex justify-end">
                   <IconButton
@@ -705,7 +705,7 @@ function DoctorAppointment() {
             </div>
          </Dialog>
 
-         <Dialog open={showOfficeStuffModal} onClose={() => setShowOfficeStuffModal(false)} dir="rtl" top>
+         <Dialog open={showOfficeStuffModal} onClose={() => setShowOfficeStuffModal(false)} top>
             <div className="rounded-10 p-[30px]">
                <div className="flex justify-end">
                   <IconButton

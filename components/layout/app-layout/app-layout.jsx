@@ -28,7 +28,7 @@ function AppLayout({ children }) {
             <ThemeProvider theme={themeConfig}>
                <ToastComponent />
                <LoadingComponent />
-               <div className="font-kalamehMedium500" dir="rtl">
+               <div>
                   <RtlProvider>
                      {pathname !== '/login' && <Header />}
                      <main className="mt-[135px] customMd:mt-[150px]">{children}</main>

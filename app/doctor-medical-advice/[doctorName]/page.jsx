@@ -382,11 +382,11 @@ function DoctorMedicalAdvice() {
             </div>
          </div>
 
-         <Dialog open={showPhoneConsultationModal} onClose={() => setShowPhoneConsultationModal(false)} dir="rtl" top>
+         <Dialog open={showPhoneConsultationModal} onClose={() => setShowPhoneConsultationModal(false)} top>
             <PhoneConsultation onClose={() => setShowPhoneConsultationModal(false)} />
          </Dialog>
 
-         <Dialog open={showTextConsultationModal} onClose={() => setShowTextConsultationModal(false)} dir="rtl" top>
+         <Dialog open={showTextConsultationModal} onClose={() => setShowTextConsultationModal(false)} top>
             <TextConsultation onClose={() => setShowTextConsultationModal(false)} />
          </Dialog>
       </div>

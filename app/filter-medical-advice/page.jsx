@@ -1,44 +1,27 @@
-'use client';
-
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 // MUI
-import { Breadcrumbs, Button, Dialog, Pagination, Tab, Tabs } from '@mui/material';
+import { Breadcrumbs, Pagination } from '@mui/material';
 
 // Components
 import DoctorCard from '@/components/template/doctor-card/doctor-card';
 import MedicalAdviceAside from '@/components/pages/filter-medical-advice/medical-advice-aside/medical-advice-aside';
-import MobileSortingModal from '@/components/pages/filter-medical-advice/mobile-sorting-modal/mobile-sorting-modal';
-
-const filterBtnStyle = {
-   backgroundColor: '#2ED7FE0D',
-   height: '45px',
-   border: 'solid 1px #2ED7FE',
-   borderRadius: '10px',
-   color: '#404040',
-   fontSize: '15px',
-   lineHeight: '12px',
-};
+import SortingTabs from '@/components/template/sorting-tabs/sorting-tabs';
+import MobileFilterMenus from '@/components/template/mobile-filter-menus/mobile-filter-menus';
 
 function FilterMedicalAdvice({ searchParams }) {
-   const [sortingValue, setSortingValue] = useState('');
-   const [showFilterMobile, setShowFilterMobile] = useState(false);
-   const [showSortingMobile, setShowSortingMobile] = useState(false);
-
-   const { push } = useRouter();
-
-   useEffect(() => {
-      setSortingValue(searchParams?.ordering || '');
-   }, [searchParams]);
-
-   const changeTabHandler = (e, newValue) => {
-      setSortingValue(newValue);
-
-      const newSearchParams = { ...searchParams, ordering: newValue };
-      const params = new URLSearchParams(newSearchParams).toString();
-      push(`?${params}`, { scroll: false });
+   const docDetail = {
+      fullName: 'راضیه حسینی',
+      specialtyTitle: 'متخصص کلیه',
+      successReservationCount: 5000,
+      successConsolationCount: 200,
+      rate: 4.3,
+      raterCount: 67,
+      clinic: 'شهرک حافظ خیابان صدر پلاک ۵۳۴',
+      nearestVisitDate: '27 بهمن',
+      hasTelCounseling: true,
+      hasTextCounseling: true,
+      acceptVisit: true,
    };
 
    return (
@@ -97,52 +80,24 @@ function FilterMedicalAdvice({ searchParams }) {
                      لیست بهترین متخصص کودکان
                   </p>
 
-                  <div className="mt-15 flex items-center gap-5 customLg:hidden">
-                     <Button className="flex-1" sx={filterBtnStyle} onClick={() => setShowFilterMobile(true)}>
-                        فیلتر ها
-                     </Button>
-                     <Button className="flex-1" sx={filterBtnStyle} onClick={() => setShowSortingMobile(true)}>
-                        ترتیب نمایش
-                     </Button>
-                  </div>
+                  <MobileFilterMenus />
                   <div
                      className="mt-5 hidden items-center gap-[60px] rounded-10 border border-solid
                    border-borderColor px-5 customMd:flex"
                   >
                      <p className="whitespace-nowrap text-xl leading-4 text-secondaryBlue">ترتیب نمایش</p>
-                     <div>
-                        <Tabs value={sortingValue} onChange={changeTabHandler} variant="scrollable">
-                           <Tab
-                              label="پیش فرض"
-                              value=""
-                              sx={{ fontSize: '20px', paddingY: '20px', lineHeight: '16px' }}
-                           />
-                           <Tab
-                              label="بیشترین امتیاز"
-                              value="mostScore"
-                              sx={{ fontSize: '20px', paddingY: '20px', lineHeight: '16px' }}
-                           />
-                           <Tab
-                              label="نزدیک ترین نوبت"
-                              value="closestTurn"
-                              sx={{ fontSize: '20px', paddingY: '20px', lineHeight: '16px' }}
-                           />
-                           <Tab
-                              label="بیشترین نوبت موفق"
-                              value="mostSuccessfulTurn"
-                              sx={{ fontSize: '20px', paddingY: '20px', lineHeight: '16px' }}
-                           />
-                        </Tabs>
-                     </div>
+                     <SortingTabs searchParams={searchParams} />
                   </div>
                   <div className="mt-15 space-y-[15px] customMd:mt-[30px] customMd:space-y-[30px]">
-                     <DoctorCard buttonsType={1} />
-                     <DoctorCard buttonsType={1} />
-                     <DoctorCard buttonsType={1} />
-                     <DoctorCard buttonsType={1} />
-                     <DoctorCard buttonsType={1} />
-                     <DoctorCard buttonsType={1} />
-                     <DoctorCard buttonsType={1} />
+                     <DoctorCard buttonsType={1} detail={docDetail} />
+                     <DoctorCard buttonsType={1} detail={docDetail} />
+                     <DoctorCard buttonsType={1} detail={docDetail} />
+                     <DoctorCard buttonsType={1} detail={docDetail} />
+                     <DoctorCard buttonsType={1} detail={docDetail} />
+                     <DoctorCard buttonsType={1} detail={docDetail} />
+                     <DoctorCard buttonsType={1} detail={docDetail} />
+                     <DoctorCard buttonsType={1} detail={docDetail} />
+                     <DoctorCard buttonsType={1} detail={docDetail} />
                   </div>
 
                   <div className="mt-[30px] flex  justify-center customMd:mt-[60px] customMd:justify-end">
@@ -151,16 +106,6 @@ function FilterMedicalAdvice({ searchParams }) {
                </div>
             </div>
          </div>
-
-         <Dialog open={showFilterMobile} onClose={() => setShowFilterMobile(false)} dir="rtl" top>
-            <div className="rounded-10">
-               <MedicalAdviceAside onClose={() => setShowFilterMobile(false)} />
-            </div>
-         </Dialog>
-
-         <Dialog open={showSortingMobile} onClose={() => setShowSortingMobile(false)} dir="rtl" top>
-            <MobileSortingModal setShowSortingMobile={setShowSortingMobile} />
-         </Dialog>
       </div>
    );
 }
