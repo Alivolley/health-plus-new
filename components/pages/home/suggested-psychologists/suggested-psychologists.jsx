@@ -9,7 +9,7 @@ import { MdKeyboardArrowLeft } from 'react-icons/md';
 // Components
 import SuggestDoctorCard from '@/components/template/suggest-doctor-card/suggest-doctor-card';
 
-function SuggestedPsychologists() {
+function SuggestedPsychologists({ detail }) {
    return (
       <div className="bg-[#2ED7FE0D] px-eighteen pb-[27px] pt-eighteen customMd:px-[90px] customMd:py-[45px]">
          <div className="mx-auto max-w-[1260px]">
@@ -33,12 +33,9 @@ function SuggestedPsychologists() {
             </div>
 
             <div className="mt-[9px] flex items-center gap-[9px] overflow-auto customMd:mt-[23px] customMd:justify-center customMd:gap-[23px]">
-               <SuggestDoctorCard />
-               <SuggestDoctorCard />
-               <SuggestDoctorCard />
-               <SuggestDoctorCard />
-               <SuggestDoctorCard />
-               <SuggestDoctorCard />
+               {detail?.psychologists?.map(item => (
+                  <SuggestDoctorCard key={item?.id} detail={item} />
+               ))}
             </div>
          </div>
       </div>

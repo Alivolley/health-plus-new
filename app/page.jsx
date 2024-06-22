@@ -7,13 +7,18 @@ import SuggestedDoctors from '@/components/pages/home/suggested-doctors/suggeste
 import SuggestedPsychologists from '@/components/pages/home/suggested-psychologists/suggested-psychologists';
 import WhyUs from '@/components/pages/home/why-us/why-us';
 
-export default function Home() {
+export default async function Home() {
+   const suggestedDoctorsRequest = await fetch(`${process?.env?.NEXT_PUBLIC_API_BASE_URL}doctor/suggested`, {
+      next: { revalidate: 60 },
+   });
+   const suggestedDoctorsData = await suggestedDoctorsRequest?.json();
+
    return (
       <div className="pb-[25px] customMd:pb-[150px]">
          <HomeBanner1 />
-         <SuggestedDoctors />
+         <SuggestedDoctors detail={suggestedDoctorsData} />
          <HomeCounseling />
-         <SuggestedPsychologists />
+         <SuggestedPsychologists detail={suggestedDoctorsData} />
          <HomeBanner2 />
          <NewestBlogs />
          <WhyUs />

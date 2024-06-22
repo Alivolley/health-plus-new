@@ -1,5 +1,5 @@
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -28,9 +28,15 @@ import LoginModal from '@/components/template/login-modal/login-modal';
 function Header() {
    const [showMobileMenu, setShowMobileMenu] = useState(false);
    const [showLoginModal, setShowLoginModal] = useState(false);
+   const [isUserLogin, setIsUserLogin] = useState(false);
+
+   const isLogin = useSelector(state => state?.loginStatusSlice);
+
+   useEffect(() => {
+      setIsUserLogin(isLogin);
+   }, [isLogin]);
 
    const pathname = usePathname();
-   const isLogin = useSelector(state => state?.loginStatusSlice);
 
    const formSubmitHandler = e => {
       e.preventDefault();
@@ -234,7 +240,7 @@ function Header() {
                      />
                   </form>
 
-                  {isLogin ? (
+                  {isUserLogin ? (
                      <Link href="/">
                         <Button
                            variant="contained"
@@ -245,7 +251,6 @@ function Header() {
                               borderRadius: '16px',
                               fontSize: '12px',
                            }}
-                           onClick={() => setShowLoginModal(true)}
                            startIcon={<RiUserLine className="!text-eighteen" />}
                         >
                            حساب کاربری من

@@ -1,12 +1,8 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
-// import { useRouter } from 'next/router';
 
 // MUI
-import { Breadcrumbs, Button, Dialog, Grid, IconButton } from '@mui/material';
+import { Breadcrumbs, Button, Grid, IconButton } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 
 // Icons
@@ -22,28 +18,21 @@ import { HiShieldCheck } from 'react-icons/hi2';
 import { LiaComment } from 'react-icons/lia';
 
 // Assets
-import doctorProfileSample from '@/assets/images/doctorProfileSample.png';
+import noProfilePic from '@/assets/images/noProfile.png';
 
 // Components
 import PhoneConsultation from '@/components/pages/doctor-medical-advice/phone-consultation/phone-consultation';
 import TextConsultation from '@/components/pages/doctor-medical-advice/text-consultation/text-consultation';
 import CommentItem from '@/components/template/comment-item/comment-item';
+import ConsultationMobileButtons from '@/components/pages/doctor-medical-advice/consultation-mobile-buttons/consultation-mobile-buttons';
 
-const filterBtnStyle = {
-   backgroundColor: '#2ED7FE0D',
-   height: '45px',
-   border: 'solid 1px #2ED7FE',
-   borderRadius: '10px',
-   color: '#404040',
-   fontSize: '15px',
-   lineHeight: '12px',
-};
-
-function DoctorMedicalAdvice() {
-   const [showPhoneConsultationModal, setShowPhoneConsultationModal] = useState(false);
-   const [showTextConsultationModal, setShowTextConsultationModal] = useState(false);
-
-   // const { query } = useRouter();
+async function DoctorMedicalAdvice({ params }) {
+   const doctorDetailRequest = await fetch(
+      `${process?.env?.NEXT_PUBLIC_API_BASE_URL}doctor/doctorDetail?dr_id=${params?.doctorId}`,
+      { cache: 'no-store' }
+   );
+   const doctorDetailData = await doctorDetailRequest?.json();
+   const consultationArray = Object.entries(doctorDetailData?.data?.counselation_hours);
 
    return (
       <div className="px-eighteen pb-[200px] customMd:px-[90px]">
@@ -69,22 +58,23 @@ function DoctorMedicalAdvice() {
                      key={2}
                      className="text-15 text-textColor2 transition-all duration-200 hover:text-black hover:underline"
                   >
-                     متخصص کودکان
+                     {doctorDetailData?.data?.specialty}
                   </Link>,
                   <p key={2} className="text-15 text-textColor2">
-                     دکتر الهام ماهودی
+                     {doctorDetailData?.data?.full_name}
                   </p>,
                ]}
             </Breadcrumbs>
 
             <div
                className="max-customMd:rounded-lg max-customMd:py-[10px] customMd:mt-15 customMd:!shadow-none"
-               style={{
-                  boxShadow: '0px 0px 15px 0px #0000000D',
-               }}
+               style={{ boxShadow: '0px 0px 15px 0px #0000000D' }}
             >
                <p className="text-[20px] leading-8 text-primaryBlue max-customMd:text-center">
-                  دکتر الهام ماهودی / متخصص کودکان / شماره نظام پزشکی ۱۲۳۴۵۶
+                  {doctorDetailData?.data?.full_name} / {doctorDetailData?.data?.specialty} / شماره نظام پزشکی{' '}
+                  <span className="font-DanaFaNum font-bold tracking-[1px]">
+                     {doctorDetailData?.data?.medical_number}
+                  </span>
                </p>
                <p className="mt-15 text-15 leading-7 text-textColor2 max-customMd:hidden">
                   با هلث پلاس می‌توانید ۲۴ ساعته و از همه جای دنیا مشاوره پزشکی و مشاوره روانشناسی بگیرید. هلث پلاس به
@@ -100,16 +90,14 @@ function DoctorMedicalAdvice() {
                </aside>
                <div className="grow">
                   <p className="rounded-10 border border-solid border-borderColor p-4 text-center text-15 leading-3 text-textColor2 customMd:hidden">
-                     شماره نظام پزشکی ۱۲۳۴۵۶
+                     شماره نظام پزشکی{' '}
+                     <span className="font-DanaFaNum font-bold tracking-[1px]">
+                        {doctorDetailData?.data?.medical_number}
+                     </span>
                   </p>
 
                   <div className="mt-15 flex items-center gap-5 customLg:hidden">
-                     <Button className="flex-1" sx={filterBtnStyle} onClick={() => setShowTextConsultationModal(true)}>
-                        مشاوره متنی
-                     </Button>
-                     <Button className="flex-1" sx={filterBtnStyle} onClick={() => setShowPhoneConsultationModal(true)}>
-                        مشاوره تلفنی
-                     </Button>
+                     <ConsultationMobileButtons />
                   </div>
 
                   <div className="rounded-10 border border-solid border-secondaryBlue p-15 max-customMd:mt-15 customMd:p-5">
@@ -117,7 +105,7 @@ function DoctorMedicalAdvice() {
                         <div className="flex flex-col items-center gap-[10px] customMd:flex-row customMd:gap-5">
                            <div className="relative size-[60px]">
                               <Image
-                                 src={doctorProfileSample}
+                                 src={doctorDetailData?.data?.profile || noProfilePic}
                                  alt="user profile"
                                  fill
                                  className="rounded-full object-cover"
@@ -125,8 +113,12 @@ function DoctorMedicalAdvice() {
                               <div className="absolute right-[4px] top-[3px] size-3 rounded-full border-2 border-solid border-white bg-[#63FEAA]" />
                            </div>
                            <div className="text-15 leading-[22px] customMd:text-xl customMd:leading-[30px]">
-                              <p className="text-textColor1 max-customMd:text-center">دکتر الهام ماهودی</p>
-                              <p className="text-textColor2 max-customMd:text-center">متخصص کودکان</p>
+                              <p className="text-textColor1 max-customMd:text-center">
+                                 {doctorDetailData?.data?.full_name}
+                              </p>
+                              <p className="text-textColor2 max-customMd:text-center">
+                                 {doctorDetailData?.data?.specialty}
+                              </p>
                            </div>
                         </div>
                         <div className="flex items-center gap-[13px] max-customMd:mt-15 customMd:gap-5">
@@ -134,8 +126,8 @@ function DoctorMedicalAdvice() {
                               className="space-y-[7px] rounded-[3px] bg-[#2ED7FE0D] py-[7px] font-kalamehSemiBold600 max-customMd:flex-1
                customMd:space-y-4 customMd:rounded-[5px] customMd:px-eighteen customMd:py-[10px]"
                            >
-                              <p className="text-center text-10 leading-[8px] text-[#4EE292] customMd:text-15 customMd:leading-[10px]">
-                                 ۵۰۰۰+ نوبت
+                              <p className="text-center font-DanaFaNum text-10 font-bold leading-[8px] text-[#4EE292] customMd:text-15 customMd:leading-[10px]">
+                                 {doctorDetailData?.data?.visit_count}+ نوبت
                               </p>
                               <p className="text-center text-10 leading-[8px] text-primaryBlue customMd:text-15 customMd:leading-[10px]">
                                  در هلث پلاس
@@ -156,11 +148,11 @@ function DoctorMedicalAdvice() {
                               className="space-y-[7px] rounded-[3px] bg-[#2ED7FE0D] py-[7px] font-kalamehSemiBold600 max-customMd:flex-1
                customMd:space-y-4 customMd:rounded-[5px] customMd:px-eighteen customMd:py-[10px]"
                            >
-                              <p className="text-center text-10 leading-[8px] text-[#FFAF03] customMd:text-15 customMd:leading-[10px]">
-                                 امتیاز ۴.۴
+                              <p className="text-center font-DanaFaNum text-10 font-bold leading-[8px] text-[#FFAF03] customMd:text-15 customMd:leading-[10px]">
+                                 امتیاز {doctorDetailData?.data?.score}
                               </p>
-                              <p className="text-center text-10 leading-[8px] text-primaryBlue customMd:text-15 customMd:leading-[10px]">
-                                 از ۲۰۷ نظر
+                              <p className="text-center font-DanaFaNum text-10 font-bold leading-[8px] text-primaryBlue customMd:text-15 customMd:leading-[10px]">
+                                 از {doctorDetailData?.data?.score_count} نظر
                               </p>
                            </div>
                         </div>
@@ -201,16 +193,15 @@ function DoctorMedicalAdvice() {
 
                               <div className="mt-[10px] flex items-center gap-1 text-10 leading-[15px] text-textColor2 customMd:mt-15 customMd:text-15 customMd:leading-[22px]">
                                  <p>شماره نظام پزشکی : </p>
-                                 <p className="font-DanaFaNum font-bold">123456</p>
+                                 <p className="font-DanaFaNum font-bold">{doctorDetailData?.data?.medical_number}</p>
                               </div>
                               <p className="max-w-[450px] text-10 leading-[15px] text-textColor2 customMd:text-15 customMd:leading-[22px]">
-                                 متخصص کودکان و نوزادان دارای بورد تخصصی از دانشگاه شهید بهشتی و ... مشاوره در زمینه های
-                                 زردی نوزادان ،تغذیه،ریفلاکس و کولیک وآلرژی... درمان بیماری‌های تنفسی ،گوارشی ،عفونی ...
+                                 {doctorDetailData?.data?.about}
                               </p>
                            </div>
                         </div>
 
-                        <Link href="/doctor-appointment/mansoori" className="max-customMd:mt-[30px]">
+                        <Link href={`/doctor-appointment/${params?.doctorId}`} className="max-customMd:mt-[30px]">
                            <Button
                               variant="contained"
                               className="max-customMd:w-full customMd:w-[135px]"
@@ -257,60 +248,17 @@ function DoctorMedicalAdvice() {
                      </div>
 
                      <Grid container columnSpacing={{ xs: '5px', md: '73px' }} rowSpacing={{ xs: '10px', md: '20px' }}>
-                        <Grid item xs={6}>
-                           <div
-                              className="flex items-center justify-between rounded bg-[#2ED7FE0D] p-[10px] font-DanaFaNum
+                        {consultationArray?.map(item => (
+                           <Grid item xs={6} key={item}>
+                              <div
+                                 className="flex items-center justify-between rounded bg-[#2ED7FE0D] p-[10px] font-DanaFaNum
                             text-10 font-bold leading-[6px] text-textColor3 customMd:rounded-10 customMd:p-[30px] customMd:text-xl customMd:leading-3"
-                           >
-                              <p>شنبه</p>
-                              <p>8:30 الی 23:30</p>
-                           </div>
-                        </Grid>
-                        <Grid item xs={6}>
-                           <div
-                              className="flex items-center justify-between rounded bg-[#2ED7FE0D] p-[10px] font-DanaFaNum
-                            text-10 font-bold leading-[6px] text-textColor3 customMd:rounded-10 customMd:p-[30px] customMd:text-xl customMd:leading-3"
-                           >
-                              <p>یکشنبه</p>
-                              <p>8:30 الی 23:30</p>
-                           </div>
-                        </Grid>
-                        <Grid item xs={6}>
-                           <div
-                              className="flex items-center justify-between rounded bg-[#2ED7FE0D] p-[10px] font-DanaFaNum
-                            text-10 font-bold leading-[6px] text-textColor3 customMd:rounded-10 customMd:p-[30px] customMd:text-xl customMd:leading-3"
-                           >
-                              <p>دوشنبه</p>
-                              <p>8:30 الی 23:30</p>
-                           </div>
-                        </Grid>
-                        <Grid item xs={6}>
-                           <div
-                              className="flex items-center justify-between rounded bg-[#2ED7FE0D] p-[10px] font-DanaFaNum
-                            text-10 font-bold leading-[6px] text-textColor3 customMd:rounded-10 customMd:p-[30px] customMd:text-xl customMd:leading-3"
-                           >
-                              <p>سه شنبه</p>
-                              <p>8:30 الی 23:30</p>
-                           </div>
-                        </Grid>
-                        <Grid item xs={6}>
-                           <div
-                              className="flex items-center justify-between rounded bg-[#2ED7FE0D] p-[10px] font-DanaFaNum
-                            text-10 font-bold leading-[6px] text-textColor3 customMd:rounded-10 customMd:p-[30px] customMd:text-xl customMd:leading-3"
-                           >
-                              <p>چهارشنبه</p>
-                              <p>8:30 الی 23:30</p>
-                           </div>
-                        </Grid>
-                        <Grid item xs={6}>
-                           <div
-                              className="flex items-center justify-between rounded bg-[#2ED7FE0D] p-[10px] font-DanaFaNum
-                            text-10 font-bold leading-[6px] text-textColor3 customMd:rounded-10 customMd:p-[30px] customMd:text-xl customMd:leading-3"
-                           >
-                              <p>پنجشنبه</p>
-                              <p>8:30 الی 23:30</p>
-                           </div>
-                        </Grid>
+                              >
+                                 <p>{item?.[0]}</p>
+                                 <p>{item?.[1]}</p>
+                              </div>
+                           </Grid>
+                        ))}
                      </Grid>
                   </div>
 
@@ -354,8 +302,10 @@ function DoctorMedicalAdvice() {
 
                      <div className="rounded-10 bg-[#2ED7FE0D] p-15 customMd:px-5 customMd:py-[30px]">
                         <div className="mt-[10px] text-center font-DanaFaNum text-15 font-bold leading-3 customMd:mt-5 customMd:text-xl customMd:leading-4">
-                           <p className="text-[#FFAF03]">امتیاز 4.4</p>
-                           <p className="mt-[10px] text-[#4EE292] customMd:mt-5">از ۲۰۷ امتیاز</p>
+                           <p className="text-[#FFAF03]">امتیاز {doctorDetailData?.data?.score}</p>
+                           <p className="mt-[10px] text-[#4EE292] customMd:mt-5">
+                              از {doctorDetailData?.data?.score_count} امتیاز
+                           </p>
                         </div>
                         <div className="mt-15 flex flex-col gap-[15px] customMd:mt-[30px] customMd:gap-[30px]">
                            <CommentItem />
@@ -381,14 +331,6 @@ function DoctorMedicalAdvice() {
                </div>
             </div>
          </div>
-
-         <Dialog open={showPhoneConsultationModal} onClose={() => setShowPhoneConsultationModal(false)} top>
-            <PhoneConsultation onClose={() => setShowPhoneConsultationModal(false)} />
-         </Dialog>
-
-         <Dialog open={showTextConsultationModal} onClose={() => setShowTextConsultationModal(false)} top>
-            <TextConsultation onClose={() => setShowTextConsultationModal(false)} />
-         </Dialog>
       </div>
    );
 }

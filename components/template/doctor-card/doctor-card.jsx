@@ -104,7 +104,7 @@ function DoctorCard({ buttonsType, detail }) {
             {buttonsType === 1 ? (
                <div className="flex items-center gap-[14px] max-customMd:mt-[30px]">
                   {detail?.acceptVisit && (
-                     <Link href="/doctor-appointment/mansoori" className="block max-customMd:flex-1 customMd:w-[135px]">
+                     <Link href="/doctor-appointment/1" className="block max-customMd:flex-1 customMd:w-[135px]">
                         <Button
                            variant="outlined"
                            fullWidth
@@ -120,10 +120,7 @@ function DoctorCard({ buttonsType, detail }) {
                      </Link>
                   )}
                   {detail?.hasTelCounseling && (
-                     <Link
-                        href="/doctor-medical-advice/mansoori"
-                        className="block max-customMd:flex-1 customMd:w-[135px]"
-                     >
+                     <Link href="/doctor-medical-advice/1" className="block max-customMd:flex-1 customMd:w-[135px]">
                         <Button
                            variant="contained"
                            fullWidth
@@ -142,7 +139,7 @@ function DoctorCard({ buttonsType, detail }) {
                </div>
             ) : buttonsType === 2 ? (
                detail?.acceptVisit && (
-                  <Link href="/doctor-appointment/mansoori" className="block max-customMd:mt-[30px]">
+                  <Link href="/doctor-appointment/1" className="block max-customMd:mt-[30px]">
                      <Button
                         variant="contained"
                         className="max-customMd:w-full customMd:w-[135px]"
