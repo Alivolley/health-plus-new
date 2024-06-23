@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from 'next/link';
 import Image from 'next/image';
 
 // Assets
@@ -25,7 +26,10 @@ function HomeBanner1() {
                   <p className="font-kalamehSemiBold600 text-sm text-textColor1 customMd:hidden">دسته بندی ها</p>
                </div>
                <div className="mt-[9px] flex items-center justify-center gap-[9px] customMd:mt-[45px] customMd:gap-[120px]">
-                  <div className="flex flex-col items-center gap-[9px] customMd:gap-[22px]">
+                  <Link
+                     href="/online-medical-advice"
+                     className="flex flex-col items-center gap-[9px] customMd:gap-[22px]"
+                  >
                      <div
                         style={{ background: 'linear-gradient(360deg, #CF63FE 0%, #FAD1FE 100%)' }}
                         className="flex size-16 items-center justify-center rounded-15 customMd:size-[101px] customMd:rounded-[38px]"
@@ -37,8 +41,8 @@ function HomeBanner1() {
                      <p className="text-center text-[11px] text-textColor3 customMd:text-[19px] customMd:text-textColor1">
                         مشاوره آنلاین
                      </p>
-                  </div>
-                  <div className="flex flex-col items-center gap-[9px] customMd:gap-[22px]">
+                  </Link>
+                  <Link href="/appointment-list" className="flex flex-col items-center gap-[9px] customMd:gap-[22px]">
                      <div
                         style={{ background: 'linear-gradient(360deg, #FE639B 0%, #FED1E1 100%)' }}
                         className="flex size-16 items-center justify-center rounded-15 customMd:size-[101px] customMd:rounded-[38px]"
@@ -50,8 +54,8 @@ function HomeBanner1() {
                      <p className="text-center text-[11px] text-textColor3 customMd:text-[19px] customMd:text-textColor1">
                         نوبت دهی
                      </p>
-                  </div>
-                  <div className="flex flex-col items-center gap-[9px] customMd:gap-[22px]">
+                  </Link>
+                  <Link href="/pharmacy" className="flex flex-col items-center gap-[9px] customMd:gap-[22px]">
                      <div
                         style={{ background: 'linear-gradient(360deg, #63D9FE 0%, #D1EEFE 100%)' }}
                         className="flex size-16 items-center justify-center rounded-15 customMd:size-[101px] customMd:rounded-[38px]"
@@ -63,8 +67,8 @@ function HomeBanner1() {
                      <p className="text-center text-[11px] text-textColor3 customMd:text-[19px] customMd:text-textColor1">
                         داروخانه
                      </p>
-                  </div>
-                  <div className="flex flex-col items-center gap-[9px] customMd:gap-[22px]">
+                  </Link>
+                  <Link href="/visit-at-home" className="flex flex-col items-center gap-[9px] customMd:gap-[22px]">
                      <div
                         style={{ background: 'linear-gradient(360deg, #FEB763 0%, #FEF7D1 100%)' }}
                         className="flex size-16 items-center justify-center rounded-15 customMd:size-[101px] customMd:rounded-[38px]"
@@ -76,7 +80,7 @@ function HomeBanner1() {
                      <p className="text-center text-[11px] text-textColor3 customMd:text-[19px] customMd:text-textColor1">
                         ویزیت در منزل
                      </p>
-                  </div>
+                  </Link>
                </div>
             </div>
          </div>

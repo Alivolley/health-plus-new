@@ -21,7 +21,7 @@ function SuggestedDoctors({ detail }) {
             </div>
             <div className="flex items-center justify-between customMd:mt-[26px] customMd:justify-end">
                <p className="font-kalamehSemiBold600 text-sm text-textColor1 customMd:hidden">پزشکان پیشنهادی ما</p>
-               <Link href="/">
+               <Link href="/filter-medical-advice">
                   <Button
                      endIcon={<MdKeyboardArrowLeft className="!text-[11px] customMd:!text-eighteen" />}
                      sx={{ span: { marginInlineStart: 0 } }}

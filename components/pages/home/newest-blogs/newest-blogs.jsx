@@ -9,7 +9,7 @@ import { MdKeyboardArrowLeft } from 'react-icons/md';
 // Components
 import ArticleCard from '@/components/template/article-card/article-card';
 
-function NewestBlogs() {
+function NewestBlogs({ detail }) {
    return (
       <div className="px-eighteen customMd:px-[90px]">
          <div className="mx-auto mt-[27px] max-w-[1260px] customMd:mt-[67px]">
@@ -21,7 +21,7 @@ function NewestBlogs() {
             </div>
             <div className="flex items-center justify-between customMd:mt-[26px] customMd:justify-end">
                <p className="font-kalamehSemiBold600 text-sm text-textColor1 customMd:hidden">مجله سلامت</p>
-               <Link href="/">
+               <Link href="/blogs">
                   <Button
                      endIcon={<MdKeyboardArrowLeft className="!text-[11px] customMd:!text-eighteen" />}
                      sx={{ span: { marginInlineStart: 0 } }}
@@ -32,10 +32,9 @@ function NewestBlogs() {
                </Link>
             </div>
             <div className="mt-[9px] flex items-center gap-[9px] max-customMd:overflow-x-auto customMd:mt-[45px] customMd:gap-[22px]">
-               <ArticleCard />
-               <ArticleCard />
-               <ArticleCard />
-               <ArticleCard />
+               {detail?.map(item => (
+                  <ArticleCard key={item?.id} detail={item} />
+               ))}
             </div>
          </div>
       </div>

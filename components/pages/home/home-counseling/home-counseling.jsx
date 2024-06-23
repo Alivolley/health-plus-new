@@ -42,7 +42,7 @@ function HomeCounseling() {
             </div>
             <div className="flex items-center justify-between customMd:mt-[26px] customMd:justify-end">
                <p className="font-kalamehSemiBold600 text-sm text-textColor1 customMd:hidden">مشاوره با روانشناس</p>
-               <Link href="/">
+               <Link href="/online-medical-advice">
                   <Button
                      endIcon={<MdKeyboardArrowLeft className="!text-[11px] customMd:!text-eighteen" />}
                      sx={{ span: { marginInlineStart: 0 } }}
