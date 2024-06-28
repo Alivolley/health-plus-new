@@ -1,15 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 
 // MUI
 import { Button, IconButton } from '@mui/material';
 
 // Icons
 import { GrFormClose } from 'react-icons/gr';
+import { usePathname, useRouter } from 'next/navigation';
+
+// Components
+import BackdropLoading from '@/components/template/backdrop-loading/backdrop-loading';
 
 const filterBtnSx = { backgroundColor: '#4040400D', height: '40px', paddingX: '10px', borderRadius: '5px' };
 
-function MobileSortingModal({ setShowSortingMobile }) {
+function MobileSortingModal({ setShowSortingMobile, searchParams }) {
    const [sortingType, setSortingType] = useState('');
+   const [isPending, startTransition] = useTransition();
+
+   const { push } = useRouter();
+   const pathName = usePathname();
+
+   useEffect(() => {
+      setSortingType(searchParams?.ordering || 'default');
+   }, [searchParams]);
+
+   const changeSortingHandler = () => {
+      startTransition(() => {
+         const newSearchParams = { ...searchParams, ordering: sortingType };
+         const params = new URLSearchParams(newSearchParams).toString();
+         push(`${pathName}?${params}`, { scroll: false });
+         setShowSortingMobile(false);
+      });
+   };
 
    return (
       <div className="p-[30px]">
@@ -25,35 +46,35 @@ function MobileSortingModal({ setShowSortingMobile }) {
          </div>
 
          <div className="mt-[35px] space-y-[10px]">
-            <Button fullWidth sx={filterBtnSx} onClick={() => setSortingType('')}>
+            <Button fullWidth sx={filterBtnSx} onClick={() => setSortingType('default')}>
                <div className="flex w-full items-center justify-between text-textColor2">
                   <p className="text-15">پیش فرض</p>
                   <span
-                     className={`size-[15px] rounded-full transition-all duration-200 ${sortingType === '' ? 'bg-primaryBlue' : 'bg-[#40404033]'}`}
+                     className={`size-[15px] rounded-full transition-all duration-200 ${sortingType === 'default' ? 'bg-primaryBlue' : 'bg-[#40404033]'}`}
                   />
                </div>
             </Button>
-            <Button fullWidth sx={filterBtnSx} onClick={() => setSortingType('mostScore')}>
+            <Button fullWidth sx={filterBtnSx} onClick={() => setSortingType('most score')}>
                <div className="flex w-full items-center justify-between text-textColor2">
                   <p className="text-15">بیشترین امتیاز</p>
                   <span
-                     className={`size-[15px] rounded-full transition-all duration-200 ${sortingType === 'mostScore' ? 'bg-primaryBlue' : 'bg-[#40404033]'}`}
+                     className={`size-[15px] rounded-full transition-all duration-200 ${sortingType === 'most score' ? 'bg-primaryBlue' : 'bg-[#40404033]'}`}
                   />
                </div>
             </Button>
-            <Button fullWidth sx={filterBtnSx} onClick={() => setSortingType('closestTurn')}>
+            <Button fullWidth sx={filterBtnSx} onClick={() => setSortingType('first visit')}>
                <div className="flex w-full items-center justify-between text-textColor2">
                   <p className="text-15">نزدیک ترین نوبت</p>
                   <span
-                     className={`size-[15px] rounded-full transition-all duration-200 ${sortingType === 'closestTurn' ? 'bg-primaryBlue' : 'bg-[#40404033]'}`}
+                     className={`size-[15px] rounded-full transition-all duration-200 ${sortingType === 'first visit' ? 'bg-primaryBlue' : 'bg-[#40404033]'}`}
                   />
                </div>
             </Button>
-            <Button fullWidth sx={filterBtnSx} onClick={() => setSortingType('mostSuccessTurn')}>
+            <Button fullWidth sx={filterBtnSx} onClick={() => setSortingType('most visit')}>
                <div className="flex w-full items-center justify-between text-textColor2">
                   <p className="text-15">بیشترین نوبت موفق</p>
                   <span
-                     className={`size-[15px] rounded-full transition-all duration-200 ${sortingType === 'mostSuccessTurn' ? 'bg-primaryBlue' : 'bg-[#40404033]'}`}
+                     className={`size-[15px] rounded-full transition-all duration-200 ${sortingType === 'most visit' ? 'bg-primaryBlue' : 'bg-[#40404033]'}`}
                   />
                </div>
             </Button>
@@ -70,10 +91,13 @@ function MobileSortingModal({ setShowSortingMobile }) {
                   fontSize: '15px',
                   fontFamily: 'kalamehSemiBold600',
                }}
+               onClick={changeSortingHandler}
             >
                تایید
             </Button>
          </div>
+
+         <BackdropLoading open={isPending} />
       </div>
    );
 }

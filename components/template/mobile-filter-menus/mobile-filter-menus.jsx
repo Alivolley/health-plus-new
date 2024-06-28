@@ -19,7 +19,7 @@ const filterBtnStyle = {
    lineHeight: '12px',
 };
 
-function MobileFilterMenus() {
+function MobileFilterMenus({ specialtyList, searchParams }) {
    const [showFilterMobile, setShowFilterMobile] = useState(false);
    const [showSortingMobile, setShowSortingMobile] = useState(false);
 
@@ -36,12 +36,16 @@ function MobileFilterMenus() {
 
          <Dialog open={showFilterMobile} onClose={() => setShowFilterMobile(false)} top>
             <div className="rounded-10">
-               <MedicalAdviceAside onClose={() => setShowFilterMobile(false)} />
+               <MedicalAdviceAside
+                  onClose={() => setShowFilterMobile(false)}
+                  specialtyList={specialtyList}
+                  searchParams={searchParams}
+               />
             </div>
          </Dialog>
 
          <Dialog open={showSortingMobile} onClose={() => setShowSortingMobile(false)} top>
-            <MobileSortingModal setShowSortingMobile={setShowSortingMobile} />
+            <MobileSortingModal setShowSortingMobile={setShowSortingMobile} searchParams={searchParams} />
          </Dialog>
       </>
    );

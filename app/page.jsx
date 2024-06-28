@@ -13,18 +13,24 @@ export default async function Home() {
    });
    const suggestedDoctorsData = await suggestedDoctorsRequest?.json();
 
+   const allSpecialtiesRequest = await fetch(
+      `${process?.env?.NEXT_PUBLIC_API_BASE_URL}doctor/allSpecialtyList?type=psychologist`,
+      {
+         next: { revalidate: 60 },
+      }
+   );
+   const allSpecialtiesData = await allSpecialtiesRequest?.json();
+
    const suggestedBlogsRequest = await fetch(`${process?.env?.NEXT_PUBLIC_API_BASE_URL}journal/suggested`, {
       next: { revalidate: 60 },
    });
    const suggestedBlogsData = await suggestedBlogsRequest?.json();
 
-   console.log(suggestedBlogsData);
-
    return (
       <div className="pb-[25px] customMd:pb-[150px]">
          <HomeBanner1 />
          <SuggestedDoctors detail={suggestedDoctorsData} />
-         <HomeCounseling />
+         <HomeCounseling detail={allSpecialtiesData} />
          <SuggestedPsychologists detail={suggestedDoctorsData} />
          <HomeBanner2 />
          <NewestBlogs detail={suggestedBlogsData} />

@@ -1,28 +1,27 @@
 import Link from 'next/link';
 
 // MUI
-import { Breadcrumbs, Pagination } from '@mui/material';
+import { Breadcrumbs } from '@mui/material';
 
 // Components
 import DoctorCard from '@/components/template/doctor-card/doctor-card';
 import MedicalAdviceAside from '@/components/pages/filter-medical-advice/medical-advice-aside/medical-advice-aside';
 import SortingTabs from '@/components/template/sorting-tabs/sorting-tabs';
 import MobileFilterMenus from '@/components/template/mobile-filter-menus/mobile-filter-menus';
+import PaginationComponent from '@/components/template/pagination-component/pagination-component';
 
-function FilterMedicalAdvice({ searchParams }) {
-   const docDetail = {
-      fullName: 'راضیه حسینی',
-      specialtyTitle: 'متخصص کلیه',
-      successReservationCount: 5000,
-      successConsolationCount: 200,
-      rate: 4.3,
-      raterCount: 67,
-      clinic: 'شهرک حافظ خیابان صدر پلاک ۵۳۴',
-      nearestVisitDate: '27 بهمن',
-      hasTelCounseling: true,
-      hasTextCounseling: true,
-      acceptVisit: true,
-   };
+async function FilterMedicalAdvice({ searchParams }) {
+   const params = new URLSearchParams(searchParams).toString();
+   const doctorsRequest = await fetch(`${process?.env?.NEXT_PUBLIC_API_BASE_URL}doctor/doctorsList?${params}`, {
+      next: { revalidate: 60 },
+   });
+   const doctorsData = await doctorsRequest?.json();
+
+   const specialtyRequest = await fetch(`${process?.env?.NEXT_PUBLIC_API_BASE_URL}doctor/allSpecialtyList`, {
+      next: { revalidate: 60 },
+   });
+   const specialtyData = await specialtyRequest?.json();
+   const specialtyList = specialtyData?.data?.map(item => ({ label: item?.name, id: item?.id }));
 
    return (
       <div className="px-eighteen pb-[200px] customMd:px-[90px]">
@@ -70,7 +69,7 @@ function FilterMedicalAdvice({ searchParams }) {
 
             <div className="mt-5 flex gap-[30px] customMd:mt-[120px]">
                <aside className="h-fit w-[277px] shrink-0 rounded-10 border border-solid border-borderColor max-customLg:hidden">
-                  <MedicalAdviceAside />
+                  <MedicalAdviceAside specialtyList={specialtyList} searchParams={searchParams} />
                </aside>
                <div className="grow">
                   <p
@@ -80,7 +79,7 @@ function FilterMedicalAdvice({ searchParams }) {
                      لیست بهترین متخصص کودکان
                   </p>
 
-                  <MobileFilterMenus />
+                  <MobileFilterMenus specialtyList={specialtyList} searchParams={searchParams} />
                   <div
                      className="mt-5 hidden items-center gap-[60px] rounded-10 border border-solid
                    border-borderColor px-5 customMd:flex"
@@ -89,19 +88,13 @@ function FilterMedicalAdvice({ searchParams }) {
                      <SortingTabs searchParams={searchParams} />
                   </div>
                   <div className="mt-15 space-y-[15px] customMd:mt-[30px] customMd:space-y-[30px]">
-                     <DoctorCard buttonsType={1} detail={docDetail} />
-                     <DoctorCard buttonsType={1} detail={docDetail} />
-                     <DoctorCard buttonsType={1} detail={docDetail} />
-                     <DoctorCard buttonsType={1} detail={docDetail} />
-                     <DoctorCard buttonsType={1} detail={docDetail} />
-                     <DoctorCard buttonsType={1} detail={docDetail} />
-                     <DoctorCard buttonsType={1} detail={docDetail} />
-                     <DoctorCard buttonsType={1} detail={docDetail} />
-                     <DoctorCard buttonsType={1} detail={docDetail} />
+                     {doctorsData?.data?.map(item => (
+                        <DoctorCard buttonsType={1} detail={item} key={item?.id} />
+                     ))}
                   </div>
 
-                  <div className="mt-[30px] flex  justify-center customMd:mt-[60px] customMd:justify-end">
-                     <Pagination count={3} variant="outlined" shape="rounded" />
+                  <div className="mt-[30px] flex justify-center customMd:mt-[60px] customMd:justify-end">
+                     <PaginationComponent searchParams={searchParams} totalPage={doctorsData?.total_pages} />
                   </div>
                </div>
             </div>

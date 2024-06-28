@@ -15,7 +15,13 @@ import medicalAdviceBannerDesktop from '@/assets/images/medicalAdviceBannerDeskt
 // Components
 import MedicalAdviceCart from '@/components/template/medical-advice-cart/medical-advice-cart';
 
-function OnlineMedicalAdvice() {
+async function OnlineMedicalAdvice() {
+   const allSpecialtyRequest = await fetch(
+      `${process?.env?.NEXT_PUBLIC_API_BASE_URL}doctor/allSpecialtyList?type=psychologist`,
+      { next: { revalidate: 60 } }
+   );
+   const allSpecialtyData = await allSpecialtyRequest?.json();
+
    return (
       <div>
          <div className="px-eighteen customMd:px-[90px]">
@@ -121,60 +127,11 @@ function OnlineMedicalAdvice() {
                      دسته بندی مشاوره های پزشکی
                   </p>
                   <Grid container columnSpacing={{ xs: '5px', md: '30px' }} rowSpacing={{ xs: '15px', md: '30px' }}>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
-                     <Grid item xs={6} md={4}>
-                        <MedicalAdviceCart />
-                     </Grid>
+                     {allSpecialtyData?.data?.map(item => (
+                        <Grid item xs={6} md={4} key={item?.id}>
+                           <MedicalAdviceCart detail={item} />
+                        </Grid>
+                     ))}
                   </Grid>
                </div>
             </div>
