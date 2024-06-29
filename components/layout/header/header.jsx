@@ -138,21 +138,21 @@ function Header() {
                            className="flex flex-col gap-5 rounded-10 border border-solid border-secondaryBlue bg-white p-5"
                         >
                            <Link
-                              href="/"
+                              href="/visit-at-home"
                               className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
                            >
                               <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
                               ویزیت پزشک در منزل
                            </Link>
                            <Link
-                              href="/"
+                              href="/visit-at-home"
                               className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
                            >
                               <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
                               آزمایش در منزل
                            </Link>
                            <Link
-                              href="/"
+                              href="/visit-at-home"
                               className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
                            >
                               <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />

@@ -16,10 +16,9 @@ import medicalAdviceBannerDesktop from '@/assets/images/medicalAdviceBannerDeskt
 import MedicalAdviceCart from '@/components/template/medical-advice-cart/medical-advice-cart';
 
 async function OnlineMedicalAdvice() {
-   const allSpecialtyRequest = await fetch(
-      `${process?.env?.NEXT_PUBLIC_API_BASE_URL}doctor/allSpecialtyList?type=psychologist`,
-      { next: { revalidate: 60 } }
-   );
+   const allSpecialtyRequest = await fetch(`${process?.env?.NEXT_PUBLIC_API_BASE_URL}doctor/allSpecialtyList`, {
+      next: { revalidate: 60 },
+   });
    const allSpecialtyData = await allSpecialtyRequest?.json();
 
    return (

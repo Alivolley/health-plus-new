@@ -87,20 +87,29 @@ function Footer() {
                         <div>
                            <p className="text-textColor1">خدمات ما</p>
                            <div className="mt-[7px] flex flex-col gap-[5px] text-textColor2 customMd:mt-[22px] customMd:gap-3">
-                              <Link href="/" className="transition-all duration-200 hover:text-primaryBlue">
-                                 پزشک عمومی
+                              <Link
+                                 href="/filter-medical-advice"
+                                 className="transition-all duration-200 hover:text-primaryBlue"
+                              >
+                                 مشاوره آنلاین
                               </Link>
-                              <Link href="/" className="transition-all duration-200 hover:text-primaryBlue">
-                                 قلب و عروق
+                              <Link
+                                 href="/appointment-list?services_type=نوبت%20دهی%20مطب&"
+                                 className="transition-all duration-200 hover:text-primaryBlue"
+                              >
+                                 نوبت دهی
                               </Link>
                               <Link href="/pharmacy" className="transition-all duration-200 hover:text-primaryBlue">
                                  داروخانه
                               </Link>
-                              <Link href="/" className="transition-all duration-200 hover:text-primaryBlue">
-                                 کلیه و مجرا
+                              <Link
+                                 href="/visit-at-home"
+                                 className="transition-all duration-200 hover:text-primaryBlue"
+                              >
+                                 پزشک در منزل
                               </Link>
-                              <Link href="/" className="transition-all duration-200 hover:text-primaryBlue">
-                                 ویزیت در منزل
+                              <Link href="/blogs" className="transition-all duration-200 hover:text-primaryBlue">
+                                 مجله سلامت
                               </Link>
                            </div>
                         </div>

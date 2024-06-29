@@ -46,7 +46,7 @@ function MedicalAdviceAside({ onClose, specialtyList, searchParams }) {
 
    const applyFilters = () => {
       startTransition(() => {
-         const filters = `${visitType ? `services_type=${visitType}&` : ''}${
+         const filters = `${visitType ? `services_type=${visitType}&` : ''}${searchParams?.type ? `type=psychologist&` : ''}${
             insuranceValue ? `insurance=${insuranceValue?.label}&` : ''
          }${provinceValue ? `state=${provinceValue?.label}&` : ''}${cityValue ? `city=${cityValue}&` : ''}${
             doctorSex ? `gender=${doctorSex}&` : ''

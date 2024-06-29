@@ -42,7 +42,10 @@ function HomeBanner1() {
                         مشاوره آنلاین
                      </p>
                   </Link>
-                  <Link href="/appointment-list" className="flex flex-col items-center gap-[9px] customMd:gap-[22px]">
+                  <Link
+                     href="/appointment-list?services_type=نوبت%20دهی%20مطب&"
+                     className="flex flex-col items-center gap-[9px] customMd:gap-[22px]"
+                  >
                      <div
                         style={{ background: 'linear-gradient(360deg, #FE639B 0%, #FED1E1 100%)' }}
                         className="flex size-16 items-center justify-center rounded-15 customMd:size-[101px] customMd:rounded-[38px]"

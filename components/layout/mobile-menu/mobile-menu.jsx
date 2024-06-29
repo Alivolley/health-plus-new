@@ -17,7 +17,12 @@ import logoPic from '@/assets/images/logo.png';
 // Components
 import MobileMenuAccordion from '@/components/template/mobile-menu-accordion/mobile-menu-accordion';
 
+// Apis
+import useGetSpecialty from '@/apis/specialty/useGetSpecialty';
+
 function MobileMenu({ open, onClose }) {
+   const { data: specialtyData, isLoading: specialtyIsLoading } = useGetSpecialty();
+
    return (
       <Drawer
          anchor="left"
@@ -46,36 +51,29 @@ function MobileMenu({ open, onClose }) {
                   }
                >
                   <div className="mt-2 flex flex-col gap-4">
-                     <Link href="/filter-medical-advice" className="text-xs text-textColor2">
-                        متخصص زنان و زایمان
-                     </Link>
-                     <Link href="/filter-medical-advice" className="text-xs text-textColor2">
-                        متخصص داخلی
-                     </Link>
-                     <Link href="/filter-medical-advice" className="text-xs text-textColor2">
-                        متخصص قلب و عروق
-                     </Link>
-                     <Link href="/filter-medical-advice" className="text-xs text-textColor2">
-                        متخصص پوست و مو
-                     </Link>
-                     <Link href="/filter-medical-advice" className="text-xs text-textColor2">
-                        متخصص روانپزشک
-                     </Link>
-                     <Link href="/filter-medical-advice" className="text-xs text-textColor2">
-                        متخصص جراج
-                     </Link>
-                     <Link href="/filter-medical-advice" className="text-xs text-textColor2">
-                        متخصص دندانپزشک
-                     </Link>
-                     <Link href="/filter-medical-advice" className="text-xs text-textColor2">
-                        متخصص مغز و اعصاب
-                     </Link>
-                     <Link href="/filter-medical-advice" className="text-xs text-textColor2">
-                        متخصص تغذیه
-                     </Link>
                      <Link href="/online-medical-advice" className="text-xs text-textColor2">
                         مشاهده تمام تخصص ها
                      </Link>
+
+                     {specialtyIsLoading ? (
+                        <>
+                           <div className="h-4 w-full animate-pulse rounded-md bg-borderColor" />
+                           <div className="h-4 w-full animate-pulse rounded-md bg-borderColor" />
+                           <div className="h-4 w-full animate-pulse rounded-md bg-borderColor" />
+                           <div className="h-4 w-full animate-pulse rounded-md bg-borderColor" />
+                           <div className="h-4 w-full animate-pulse rounded-md bg-borderColor" />
+                        </>
+                     ) : (
+                        specialtyData?.data?.map(item => (
+                           <Link
+                              href={`/filter-medical-advice?specialty=${item?.id}`}
+                              className="text-xs text-textColor2"
+                              key={item?.id}
+                           >
+                              {item?.name}
+                           </Link>
+                        ))
+                     )}
                   </div>
                </MobileMenuAccordion>
                <Link
@@ -99,13 +97,13 @@ function MobileMenu({ open, onClose }) {
                   }
                >
                   <div className="mt-2 flex flex-col gap-4">
-                     <Link href="/" className="text-xs text-textColor2">
+                     <Link href="/visit-at-home" className="text-xs text-textColor2">
                         ویزیت پزشک در منزل
                      </Link>
-                     <Link href="/" className="text-xs text-textColor2">
+                     <Link href="/visit-at-home" className="text-xs text-textColor2">
                         آزمایش در منزل
                      </Link>
-                     <Link href="/" className="text-xs text-textColor2">
+                     <Link href="/visit-at-home" className="text-xs text-textColor2">
                         پرستاری در منزل
                      </Link>
                   </div>

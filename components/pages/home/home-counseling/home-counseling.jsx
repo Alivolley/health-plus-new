@@ -40,7 +40,7 @@ function HomeCounseling({ detail }) {
             >
                {detail?.data?.map(item => (
                   <Link
-                     href="/"
+                     href={`filter-medical-advice?specialty=${item?.id}`}
                      className="flex flex-1 flex-col items-center gap-[9px] customMd:gap-[22px]"
                      key={item?.id}
                   >
