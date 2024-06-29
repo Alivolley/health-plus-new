@@ -27,22 +27,22 @@ function SuggestDoctorCard({ detail }) {
              customMd:right-[8px] customMd:size-3 customMd:border-2"
             />
          </div>
-         <p className="mt-[9px] text-center text-[8px] text-textColor1 customMd:mt-15 customMd:text-15">
+         <p className="mt-[9px] line-clamp-2 h-4 text-center text-[8px] text-textColor1 customMd:mt-15 customMd:h-[30px] customMd:text-15">
             {detail?.full_name}
          </p>
-         <p className="mt-1 text-center text-[8px] text-textColor2 customMd:mt-[11px] customMd:text-15">
+         <p className="mt-1 line-clamp-2 h-4 text-center text-[8px] text-textColor2 customMd:mt-[11px] customMd:h-[30px] customMd:text-15">
             {detail?.specialty}
          </p>
          <div className="mt-[10px] flex items-center justify-between customMd:mt-[23px]">
             <p
                className="flex h-4 items-center rounded-[4px] bg-[#E5FAFF] px-1 font-DanaFaNum text-[6px]
-             font-bold text-primaryBlue customMd:h-[34px] customMd:rounded-10 customMd:px-15 customMd:text-xs"
+             font-bold text-primaryBlue customMd:h-[34px] customMd:rounded-10 customMd:px-[10px] customMd:text-10"
             >
                {detail?.total_visit}+ مشاوره
             </p>
             <div
                className="flex h-4 items-center bg-[#FFF4DC] px-1 font-DanaFaNum text-[8px] font-bold
-             text-[#FFAF03] customMd:h-[34px] customMd:gap-1 customMd:rounded-10 customMd:px-[13px] customMd:text-xs"
+             text-[#FFAF03] customMd:h-[34px] customMd:gap-1 customMd:rounded-10 customMd:px-[10px] customMd:text-10"
             >
                {detail?.score}
                <PiStarFill />

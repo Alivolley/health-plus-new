@@ -49,13 +49,13 @@ axiosInstance.interceptors.response.use(
          deleteCookie('healthPlus_accessToken');
          deleteCookie('healthPlus_refreshToken');
          deleteCookie('healthPlus_isLogin');
-         location.href = '/login';
+         toast.error('لطفا ابتدا وارد حساب کاربری خود شوید');
       } else if (error?.response?.data?.detail === 'Token is invalid or expired') {
          // refresh expired
          deleteCookie('healthPlus_accessToken');
          deleteCookie('healthPlus_refreshToken');
          deleteCookie('healthPlus_isLogin');
-         location.href = '/login';
+         toast.error('لطفا ابتدا وارد حساب کاربری خود شوید');
       } else if (error?.response?.data?.message || error?.response?.data?.detail) {
          toast.error(error?.response?.data?.message || error?.response?.data?.detail);
       }

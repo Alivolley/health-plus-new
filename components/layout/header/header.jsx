@@ -1,4 +1,4 @@
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -25,18 +25,28 @@ import HeaderStyle from './header.style';
 import MobileMenu from '../mobile-menu/mobile-menu';
 import LoginModal from '@/components/template/login-modal/login-modal';
 
+// Apis
+import useGetSpecialty from '@/apis/specialty/useGetSpecialty';
+
 function Header() {
    const [showMobileMenu, setShowMobileMenu] = useState(false);
    const [showLoginModal, setShowLoginModal] = useState(false);
    const [isUserLogin, setIsUserLogin] = useState(false);
 
    const isLogin = useSelector(state => state?.loginStatusSlice);
+   const { push } = useRouter();
+
+   const { data: specialtyData, isLoading: specialtyIsLoading } = useGetSpecialty();
 
    useEffect(() => {
       setIsUserLogin(isLogin);
    }, [isLogin]);
 
    const pathname = usePathname();
+
+   useEffect(() => {
+      setShowMobileMenu(false);
+   }, [pathname]);
 
    const formSubmitHandler = e => {
       e.preventDefault();
@@ -67,79 +77,37 @@ function Header() {
                            className="flex flex-col gap-5 rounded-10 border border-solid border-secondaryBlue bg-white p-5"
                         >
                            <Link
-                              href="/filter-medical-advice"
-                              className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
-                           >
-                              <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
-                              متخصص زنان و زایمان
-                           </Link>
-                           <Link
-                              href="/filter-medical-advice"
-                              className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
-                           >
-                              <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
-                              متخصص داخلی
-                           </Link>
-                           <Link
-                              href="/filter-medical-advice"
-                              className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
-                           >
-                              <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
-                              متخصص قلب و عروق
-                           </Link>
-                           <Link
-                              href="/filter-medical-advice"
-                              className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
-                           >
-                              <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
-                              متخصص پوست و مو
-                           </Link>
-                           <Link
-                              href="/filter-medical-advice"
-                              className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
-                           >
-                              <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
-                              متخصص روانپزشک
-                           </Link>
-                           <Link
-                              href="/filter-medical-advice"
-                              className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
-                           >
-                              <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
-                              متخصص جراج
-                           </Link>
-                           <Link
-                              href="/filter-medical-advice"
-                              className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
-                           >
-                              <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
-                              متخصص دندانپزشک
-                           </Link>
-                           <Link
-                              href="/filter-medical-advice"
-                              className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
-                           >
-                              <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
-                              متخصص مغز و اعصاب
-                           </Link>
-                           <Link
-                              href="/filter-medical-advice"
-                              className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
-                           >
-                              <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
-                              متخصص تغذیه
-                           </Link>
-                           <Link
                               href="/online-medical-advice"
                               className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
                            >
                               <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
                               مشاهده تمام تخصص ها
                            </Link>
+
+                           {specialtyIsLoading ? (
+                              <>
+                                 <div className="h-4 w-full animate-pulse rounded-md bg-borderColor" />
+                                 <div className="h-4 w-full animate-pulse rounded-md bg-borderColor" />
+                                 <div className="h-4 w-full animate-pulse rounded-md bg-borderColor" />
+                                 <div className="h-4 w-full animate-pulse rounded-md bg-borderColor" />
+                                 <div className="h-4 w-full animate-pulse rounded-md bg-borderColor" />
+                              </>
+                           ) : (
+                              specialtyData?.data?.map(item => (
+                                 <Link
+                                    href={`/filter-medical-advice?specialty=${item?.id}`}
+                                    className="flex items-center gap-[5px] whitespace-nowrap text-textColor2 transition-all duration-200 hover:text-primaryBlue"
+                                    key={item?.id}
+                                 >
+                                    <span className="mt-1 size-[5px] rounded-full bg-secondaryBlue" />
+                                    {item?.name}
+                                 </Link>
+                              ))
+                           )}
                         </div>
                      </div>
                      <Link
-                        href="/appointment-list"
+                        href="/appointment-list?services_type=نوبت%20دهی%20مطب&"
                         className={`text-15 transition-all duration-200 hover:text-primaryBlue ${
                            pathname.startsWith('/appointment-list') ? 'text-primaryBlue' : 'text-textColor2'
                         }`}
@@ -193,8 +161,10 @@ function Header() {
                         </div>
                      </div>
                      <Link
-                        href="/"
-                        className="text-15 text-textColor2 transition-all duration-200 hover:text-primaryBlue"
+                        href="/blogs"
+                        className={`text-15 transition-all duration-200 hover:text-primaryBlue ${
+                           pathname.startsWith('/blogs') ? 'text-primaryBlue' : 'text-textColor2'
+                        }`}
                      >
                         مجله سلامت
                      </Link>
@@ -219,7 +189,7 @@ function Header() {
                   <Fab
                      color="primary"
                      sx={{ width: '21px', height: '21px', borderRadius: '6px' }}
-                     onClick={() => setShowLoginModal(true)}
+                     onClick={() => (isUserLogin ? push('/account-management') : setShowLoginModal(true))}
                   >
                      <User size="15" color="#FFf" />
                   </Fab>
@@ -241,7 +211,7 @@ function Header() {
                   </form>
 
                   {isUserLogin ? (
-                     <Link href="/">
+                     <Link href="/account-management">
                         <Button
                            variant="contained"
                            sx={{

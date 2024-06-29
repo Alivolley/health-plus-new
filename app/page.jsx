@@ -15,9 +15,7 @@ export default async function Home() {
 
    const allSpecialtiesRequest = await fetch(
       `${process?.env?.NEXT_PUBLIC_API_BASE_URL}doctor/allSpecialtyList?type=psychologist`,
-      {
-         next: { revalidate: 60 },
-      }
+      { next: { revalidate: 60 } }
    );
    const allSpecialtiesData = await allSpecialtiesRequest?.json();
 

@@ -78,7 +78,10 @@ function MobileMenu({ open, onClose }) {
                      </Link>
                   </div>
                </MobileMenuAccordion>
-               <Link href="/appointment-list" className="flex items-center gap-[5px] text-xs text-textColor1">
+               <Link
+                  href="/appointment-list?services_type=نوبت%20دهی%20مطب&"
+                  className="flex items-center gap-[5px] text-xs text-textColor1"
+               >
                   <BiBookmarkAltPlus className="text-base" color="#2ED7FE80" />
                   نوبت دهی
                </Link>
@@ -107,7 +110,7 @@ function MobileMenu({ open, onClose }) {
                      </Link>
                   </div>
                </MobileMenuAccordion>
-               <Link href="/" className="flex items-center gap-[5px] text-xs text-textColor1">
+               <Link href="/blogs" className="flex items-center gap-[5px] text-xs text-textColor1">
                   <IoDocumentTextOutline className="text-base" color="#2ED7FE80" />
                   مجله سلامت
                </Link>
