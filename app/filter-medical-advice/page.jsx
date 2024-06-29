@@ -6,8 +6,8 @@ import { Breadcrumbs } from '@mui/material';
 // Components
 import DoctorCard from '@/components/template/doctor-card/doctor-card';
 import MedicalAdviceAside from '@/components/pages/filter-medical-advice/medical-advice-aside/medical-advice-aside';
-import SortingTabs from '@/components/template/sorting-tabs/sorting-tabs';
-import MobileFilterMenus from '@/components/template/mobile-filter-menus/mobile-filter-menus';
+import SortingTabs from '@/components/pages/filter-medical-advice/sorting-tabs/sorting-tabs';
+import MobileFilterMenus from '@/components/pages/filter-medical-advice/mobile-filter-menus/mobile-filter-menus';
 import PaginationComponent from '@/components/template/pagination-component/pagination-component';
 
 async function FilterMedicalAdvice({ searchParams }) {

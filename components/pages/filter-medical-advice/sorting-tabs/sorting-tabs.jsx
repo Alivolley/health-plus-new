@@ -7,7 +7,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { Tabs, Tab } from '@mui/material';
 
 // Components
-import BackdropLoading from '../backdrop-loading/backdrop-loading';
+import BackdropLoading from '@/components/template/backdrop-loading/backdrop-loading';
 
 function SortingTabs({ searchParams }) {
    const [sortingValue, setSortingValue] = useState('default');
