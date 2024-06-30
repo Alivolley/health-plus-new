@@ -13,6 +13,15 @@ const categoryBtnSx = {
    paddingLeft: '30px',
 };
 
+const categoryActiveBtnSx = {
+   backgroundColor: '#2ED7FE80',
+   color: 'white',
+   ':hover': {
+      backgroundColor: '#2ED7FE80',
+      color: 'white',
+   },
+};
+
 function ChangeCategoryBox({ searchParams }) {
    const [chosenCategory, setChosenCategory] = useState('');
 
@@ -39,10 +48,7 @@ function ChangeCategoryBox({ searchParams }) {
             sx={{
                ...categoryBtnSx,
                ...(chosenCategory === ''
-                  ? {
-                       backgroundColor: '#2ED7FE80',
-                       color: 'white',
-                    }
+                  ? { ...categoryActiveBtnSx }
                   : {
                        backgroundColor: 'white',
                        border: '1px solid #2ED7FE40',
@@ -59,10 +65,7 @@ function ChangeCategoryBox({ searchParams }) {
             sx={{
                ...categoryBtnSx,
                ...(chosenCategory === 'nursing'
-                  ? {
-                       backgroundColor: '#2ED7FE80',
-                       color: 'white',
-                    }
+                  ? { ...categoryActiveBtnSx }
                   : {
                        backgroundColor: 'white',
                        border: '1px solid #2ED7FE40',
@@ -79,10 +82,7 @@ function ChangeCategoryBox({ searchParams }) {
             sx={{
                ...categoryBtnSx,
                ...(chosenCategory === 'generalPractitioner'
-                  ? {
-                       backgroundColor: '#2ED7FE80',
-                       color: 'white',
-                    }
+                  ? { ...categoryActiveBtnSx }
                   : {
                        backgroundColor: 'white',
                        border: '1px solid #2ED7FE40',
@@ -99,10 +99,7 @@ function ChangeCategoryBox({ searchParams }) {
             sx={{
                ...categoryBtnSx,
                ...(chosenCategory === 'specialistDoctor'
-                  ? {
-                       backgroundColor: '#2ED7FE80',
-                       color: 'white',
-                    }
+                  ? { ...categoryActiveBtnSx }
                   : {
                        backgroundColor: 'white',
                        border: '1px solid #2ED7FE40',
@@ -119,10 +116,7 @@ function ChangeCategoryBox({ searchParams }) {
             sx={{
                ...categoryBtnSx,
                ...(chosenCategory === 'therapy'
-                  ? {
-                       backgroundColor: '#2ED7FE80',
-                       color: 'white',
-                    }
+                  ? { ...categoryActiveBtnSx }
                   : {
                        backgroundColor: 'white',
                        border: '1px solid #2ED7FE40',

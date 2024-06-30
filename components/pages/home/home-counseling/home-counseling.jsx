@@ -10,8 +10,6 @@ import Image from 'next/image';
 // Components
 
 function HomeCounseling({ detail }) {
-   console.log(detail);
-
    return (
       <div className="px-eighteen pb-[27px] pt-eighteen customMd:px-[90px] customMd:pb-[68px] customMd:pt-[45px]">
          <div className="mx-auto max-w-[1260px]">

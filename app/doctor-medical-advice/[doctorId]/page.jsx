@@ -34,6 +34,15 @@ async function DoctorMedicalAdvice({ params }) {
    const doctorDetailData = await doctorDetailRequest?.json();
    const consultationArray = Object.entries(doctorDetailData?.data?.counselation_hours);
 
+   const pricesArray = [];
+   Object.keys(doctorDetailData?.data?.counseling_prices)?.forEach((key, index) =>
+      pricesArray?.push({
+         id: index + 1,
+         time: Number(key),
+         price: Number(doctorDetailData?.data?.counseling_prices?.[key]),
+      })
+   );
+
    return (
       <div className="px-eighteen pb-[200px] customMd:px-[90px]">
          <div className="mx-auto max-w-[1260px]">
@@ -47,14 +56,14 @@ async function DoctorMedicalAdvice({ params }) {
                      صفحه اصلی
                   </Link>,
                   <Link
-                     href="/online-medical-advice"
+                     href="/filter-medical-advice"
                      key={2}
                      className="text-15 text-textColor2 transition-all duration-200 hover:text-black hover:underline"
                   >
                      مشاوره آنلاین
                   </Link>,
                   <Link
-                     href="/filter-medical-advice"
+                     href={`/filter-medical-advice?specialty=${doctorDetailData?.data?.specialty_id}`}
                      key={2}
                      className="text-15 text-textColor2 transition-all duration-200 hover:text-black hover:underline"
                   >
@@ -85,8 +94,18 @@ async function DoctorMedicalAdvice({ params }) {
 
             <div className="mt-5 flex gap-[30px] customMd:mt-[120px]">
                <aside className="h-fit w-[277px] shrink-0 space-y-[-30px] rounded-10 border border-solid border-borderColor max-customLg:hidden">
-                  <PhoneConsultation />
-                  <TextConsultation />
+                  {doctorDetailData?.data?.services_type?.['مشاوره تلفنی'] && (
+                     <PhoneConsultation prices={pricesArray} />
+                  )}
+
+                  {doctorDetailData?.data?.services_type?.['مشاوره متنی'] && (
+                     <TextConsultation price={doctorDetailData?.data?.text_counseling_price} />
+                  )}
+
+                  {!doctorDetailData?.data?.services_type?.['مشاوره تلفنی'] &&
+                     !doctorDetailData?.data?.services_type?.['مشاوره متنی'] && (
+                        <p className="py-10 text-center">مشاوره آنلاین ارائه نمیشود</p>
+                     )}
                </aside>
                <div className="grow">
                   <p className="rounded-10 border border-solid border-borderColor p-4 text-center text-15 leading-3 text-textColor2 customMd:hidden">
@@ -97,7 +116,12 @@ async function DoctorMedicalAdvice({ params }) {
                   </p>
 
                   <div className="mt-15 flex items-center gap-5 customLg:hidden">
-                     <ConsultationMobileButtons />
+                     <ConsultationMobileButtons
+                        prices={pricesArray}
+                        price={doctorDetailData?.data?.text_counseling_price}
+                        showPhoneCounseling={doctorDetailData?.data?.services_type?.['مشاوره تلفنی']}
+                        showTextCounseling={doctorDetailData?.data?.services_type?.['مشاوره متنی']}
+                     />
                   </div>
 
                   <div className="rounded-10 border border-solid border-secondaryBlue p-15 max-customMd:mt-15 customMd:p-5">
@@ -137,8 +161,8 @@ async function DoctorMedicalAdvice({ params }) {
                               className="space-y-[7px] rounded-[3px] bg-[#2ED7FE0D] py-[7px] font-kalamehSemiBold600 max-customMd:flex-1
                customMd:space-y-4 customMd:rounded-[5px] customMd:px-eighteen customMd:py-[10px]"
                            >
-                              <p className="text-center text-10 leading-[8px] text-[#4EE292] customMd:text-15 customMd:leading-[10px]">
-                                 ۵۰۰۰+
+                              <p className="text-center font-DanaFaNum text-10 font-bold leading-[8px] text-[#4EE292] customMd:text-15 customMd:leading-[10px]">
+                                 {doctorDetailData?.data?.counseling_count}+
                               </p>
                               <p className="text-center text-10 leading-[8px] text-primaryBlue customMd:text-15 customMd:leading-[10px]">
                                  مشاوره موفق
@@ -166,23 +190,29 @@ async function DoctorMedicalAdvice({ params }) {
                            <div className="flex gap-2 customMd:items-center">
                               <IoLocation color="#2ED7FE" size="22px" />
                               <p className="text-15 leading-[22px] text-textColor3 customMd:text-xl">
-                                 تهران . نیاوران . بیمارستان مسیح دانشوری
+                                 {doctorDetailData?.data?.address}
                               </p>
                            </div>
 
                            <div className="mt-5 flex items-center gap-4 text-10 text-textColor2 customMd:mt-6 customMd:gap-[30px] customMd:text-15">
-                              <div className="flex items-center gap-[5px] customMd:gap-[10px]">
-                                 <FiPhoneCall className="customMd:text-xl" />
-                                 <p>مشاوره تلفنی</p>
-                              </div>
-                              <div className="flex items-center gap-[5px] customMd:gap-[10px]">
-                                 <Edit className="w-[10px] customMd:w-5" />
-                                 <p>مشاوره متنی</p>
-                              </div>
-                              <div className="flex items-center gap-[5px] customMd:gap-[10px]">
-                                 <BiHomeAlt className="customMd:text-xl" />
-                                 <p>نوبت دهی مطب</p>
-                              </div>
+                              {doctorDetailData?.data?.services_type?.['مشاوره تلفنی'] && (
+                                 <div className="flex items-center gap-[5px] customMd:gap-[10px]">
+                                    <FiPhoneCall className="customMd:text-xl" />
+                                    <p>مشاوره تلفنی</p>
+                                 </div>
+                              )}
+                              {doctorDetailData?.data?.services_type?.['مشاوره متنی'] && (
+                                 <div className="flex items-center gap-[5px] customMd:gap-[10px]">
+                                    <Edit className="w-[10px] customMd:w-5" />
+                                    <p>مشاوره متنی</p>
+                                 </div>
+                              )}
+                              {doctorDetailData?.data?.services_type?.['نوبت دهی مطب'] && (
+                                 <div className="flex items-center gap-[5px] customMd:gap-[10px]">
+                                    <BiHomeAlt className="customMd:text-xl" />
+                                    <p>نوبت دهی مطب</p>
+                                 </div>
+                              )}
                            </div>
 
                            <div className="mt-5 customMd:mt-[30px]">
@@ -239,28 +269,34 @@ async function DoctorMedicalAdvice({ params }) {
                      </IconButton>
                   </div>
 
-                  <div className="mt-[30px]">
-                     <div className="mb-[17px] flex items-center gap-[10px] customMd:mb-5">
-                        <MdOutlineWatchLater color="#2ED7FE" size="22px" />
-                        <p className="font-kalamehSemiBold600 text-15 leading-4 text-textColor1 customMd:text-xl">
-                           ساعات پاسخگویی به مشاوره تلفنی
-                        </p>
-                     </div>
+                  {doctorDetailData?.data?.services_type?.['مشاوره تلفنی'] && (
+                     <div className="mt-[30px]">
+                        <div className="mb-[17px] flex items-center gap-[10px] customMd:mb-5">
+                           <MdOutlineWatchLater color="#2ED7FE" size="22px" />
+                           <p className="font-kalamehSemiBold600 text-15 leading-4 text-textColor1 customMd:text-xl">
+                              ساعات پاسخگویی به مشاوره تلفنی
+                           </p>
+                        </div>
 
-                     <Grid container columnSpacing={{ xs: '5px', md: '73px' }} rowSpacing={{ xs: '10px', md: '20px' }}>
-                        {consultationArray?.map(item => (
-                           <Grid item xs={6} key={item}>
-                              <div
-                                 className="flex items-center justify-between rounded bg-[#2ED7FE0D] p-[10px] font-DanaFaNum
-                            text-10 font-bold leading-[6px] text-textColor3 customMd:rounded-10 customMd:p-[30px] customMd:text-xl customMd:leading-3"
-                              >
-                                 <p>{item?.[0]}</p>
-                                 <p>{item?.[1]}</p>
-                              </div>
-                           </Grid>
-                        ))}
-                     </Grid>
-                  </div>
+                        <Grid
+                           container
+                           columnSpacing={{ xs: '5px', md: '73px' }}
+                           rowSpacing={{ xs: '10px', md: '20px' }}
+                        >
+                           {consultationArray?.map(item => (
+                              <Grid item xs={6} key={item}>
+                                 <div
+                                    className="flex items-center justify-between rounded bg-[#2ED7FE0D] p-[10px] font-DanaFaNum
+                                 text-10 font-bold leading-[6px] text-textColor3 customMd:rounded-10 customMd:p-[30px] customMd:text-xl customMd:leading-3"
+                                 >
+                                    <p>{item?.[0]}</p>
+                                    <p>{item?.[1]}</p>
+                                 </div>
+                              </Grid>
+                           ))}
+                        </Grid>
+                     </div>
+                  )}
 
                   <div className="mt-[30px] flex items-center gap-[6px] customMd:mt-[60px] customMd:gap-[30px]">
                      <div

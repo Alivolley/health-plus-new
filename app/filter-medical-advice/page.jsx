@@ -36,18 +36,11 @@ async function FilterMedicalAdvice({ searchParams }) {
                      صفحه اصلی
                   </Link>,
                   <Link
-                     href="/online-medical-advice"
-                     key={2}
-                     className="text-15 text-textColor2 transition-all duration-200 hover:text-black hover:underline"
-                  >
-                     مشاوره پزشکی آنلاین
-                  </Link>,
-                  <Link
                      href="/filter-medical-advice"
                      key={2}
                      className="text-15 text-textColor2 transition-all duration-200 hover:text-black hover:underline"
                   >
-                     متخصص کودکان
+                     مشاوره آنلاین
                   </Link>,
                ]}
             </Breadcrumbs>
@@ -57,9 +50,7 @@ async function FilterMedicalAdvice({ searchParams }) {
                   boxShadow: '0px 0px 15px 0px #0000000D',
                }}
             >
-               <p className="text-[20px] leading-8 text-primaryBlue max-customMd:text-center">
-                  مشاوره پزشکی و آنلاین از متخصص کودکان
-               </p>
+               <p className="text-[20px] leading-8 text-primaryBlue max-customMd:text-center">مشاوره پزشکی و آنلاین</p>
                <p className="mt-15 text-15 leading-7 text-textColor2 max-customMd:hidden">
                   با هلث پلاس می‌توانید ۲۴ ساعته و از همه جای دنیا مشاوره پزشکی و مشاوره روانشناسی بگیرید. هلث پلاس به
                   صورت تخصصی و با حفظ حریم خصوصی، اقدام به ارایه مشاوره آنلاین و مشاوره تلفنی و مشاوره ویدئویی در
@@ -76,7 +67,7 @@ async function FilterMedicalAdvice({ searchParams }) {
                      className="rounded-10 border border-solid border-borderColor p-4 text-15 leading-3
                    text-textColor2 max-customMd:text-center customMd:p-5 customMd:text-xl customMd:leading-4"
                   >
-                     لیست بهترین متخصص کودکان
+                     لیست بهترین متخصصان
                   </p>
 
                   <MobileFilterMenus specialtyList={specialtyList} searchParams={searchParams} />

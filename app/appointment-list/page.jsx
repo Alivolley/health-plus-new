@@ -36,7 +36,7 @@ async function AppointmentList({ searchParams }) {
                      صفحه اصلی
                   </Link>,
                   <Link
-                     href="/appointment-list"
+                     href="/appointment-list?services_type=نوبت%20دهی%20مطب&"
                      key={2}
                      className="text-15 text-textColor2 transition-all duration-200 hover:text-black hover:underline"
                   >

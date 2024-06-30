@@ -5,7 +5,7 @@ import { Button, IconButton } from '@mui/material';
 import { GrFormClose } from 'react-icons/gr';
 import { Edit } from 'iconsax-react';
 
-function TextConsultation({ onClose }) {
+function TextConsultation({ onClose, price }) {
    return (
       <div className="p-[30px]">
          <div className="flex items-center justify-between">
@@ -42,7 +42,7 @@ function TextConsultation({ onClose }) {
             className="mt-15 flex h-10 items-center justify-center rounded-[5px] bg-[#4040400D]
           text-center font-DanaFaNum text-sm font-bold text-textColor2"
          >
-            110 هزار تومان
+            {Number(price).toLocaleString()} تومان
          </p>
 
          <div className="mt-5">

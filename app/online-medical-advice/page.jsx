@@ -36,11 +36,18 @@ async function OnlineMedicalAdvice() {
                            صفحه اصلی
                         </Link>,
                         <Link
-                           href="/online-medical-advice"
+                           href="/filter-medical-advice"
                            key={2}
                            className="text-15 text-textColor2 transition-all duration-200 hover:text-black hover:underline"
                         >
                            مشاوره پزشکی آنلاین
+                        </Link>,
+                        <Link
+                           href="/online-medical-advice"
+                           key={2}
+                           className="text-15 text-textColor2 transition-all duration-200 hover:text-black hover:underline"
+                        >
+                           تمامی تخصص ها
                         </Link>,
                      ]}
                   </Breadcrumbs>
@@ -72,7 +79,7 @@ async function OnlineMedicalAdvice() {
                            </div>
                            <div>
                               <p className="text-10 leading-4 text-textColor1 max-customMd:text-center customMd:text-xl">
-                                 مشاوره با ۲,۱۲۰+ پزشک
+                                 مشاوره با ۲۰۰۰+ پزشک
                               </p>
                               <p className="mt-[19px] text-15 leading-6 text-textColor2 max-customMd:hidden">
                                  لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان

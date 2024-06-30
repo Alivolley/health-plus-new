@@ -19,25 +19,29 @@ const filterBtnStyle = {
    lineHeight: '12px',
 };
 
-function ConsultationMobileButtons() {
+function ConsultationMobileButtons({ prices, price, showPhoneCounseling, showTextCounseling }) {
    const [showPhoneConsultationModal, setShowPhoneConsultationModal] = useState(false);
    const [showTextConsultationModal, setShowTextConsultationModal] = useState(false);
 
    return (
       <>
-         <Button className="flex-1" sx={filterBtnStyle} onClick={() => setShowTextConsultationModal(true)}>
-            مشاوره متنی
-         </Button>
-         <Button className="flex-1" sx={filterBtnStyle} onClick={() => setShowPhoneConsultationModal(true)}>
-            مشاوره تلفنی
-         </Button>
+         {showTextCounseling && (
+            <Button className="flex-1" sx={filterBtnStyle} onClick={() => setShowTextConsultationModal(true)}>
+               مشاوره متنی
+            </Button>
+         )}
+         {showPhoneCounseling && (
+            <Button className="flex-1" sx={filterBtnStyle} onClick={() => setShowPhoneConsultationModal(true)}>
+               مشاوره تلفنی
+            </Button>
+         )}
 
          <Dialog open={showPhoneConsultationModal} onClose={() => setShowPhoneConsultationModal(false)} top>
-            <PhoneConsultation onClose={() => setShowPhoneConsultationModal(false)} />
+            <PhoneConsultation onClose={() => setShowPhoneConsultationModal(false)} prices={prices} />
          </Dialog>
 
          <Dialog open={showTextConsultationModal} onClose={() => setShowTextConsultationModal(false)} top>
-            <TextConsultation onClose={() => setShowTextConsultationModal(false)} />
+            <TextConsultation onClose={() => setShowTextConsultationModal(false)} price={price} />
          </Dialog>
       </>
    );

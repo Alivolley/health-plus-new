@@ -11,7 +11,7 @@ import noImagePic from '@/assets/images/noImageBlogs.jpg';
 function MedicalAdviceCart({ detail }) {
    return (
       <Link
-         href="/filter-medical-advice"
+         href={`/filter-medical-advice?specialty=${detail?.id}`}
          className="flex flex-col gap-[14px] rounded-10 bg-white px-[10px] pb-[10px] pt-15
           customMd:flex-row customMd:items-center customMd:gap-[19px] customMd:rounded-[25px] customMd:p-[30px]"
          style={{ boxShadow: '0px 0px 15px 0px #0000000D' }}

@@ -128,7 +128,7 @@ function DoctorCard({ buttonsType, detail }) {
                         </Button>
                      </Link>
                   )}
-                  {detail?.services_type?.['مشاوره تلفنی'] && (
+                  {(detail?.services_type?.['مشاوره تلفنی'] || detail?.services_type?.['مشاوره متنی']) && (
                      <Link
                         href={`/doctor-medical-advice/${detail?.id}`}
                         className="block max-customMd:flex-1 customMd:w-[135px]"

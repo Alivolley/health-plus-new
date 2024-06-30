@@ -30,7 +30,7 @@ const autoCompleteSx = {
    '*': { border: 'none !important', fontSize: '14px !important' },
 };
 
-function MedicalAdviceAside({ onClose, specialtyList, searchParams }) {
+function MedicalAdviceAside({ onClose, specialtyList, searchParams, basePath }) {
    const [visitType, setVisitType] = useState('');
    const [doctorSex, setDoctorSex] = useState('');
    const [insuranceValue, setInsuranceValue] = useState('');
@@ -54,7 +54,7 @@ function MedicalAdviceAside({ onClose, specialtyList, searchParams }) {
             expertiseValue ? `specialty=${expertiseValue?.id}&` : ''
          }${electronic ? `online_prescription=${electronic}&` : ''}`;
 
-         push(`${pathName}?${filters}`);
+         push(`${basePath || pathName}?${filters}`);
          if (onClose) {
             onClose();
          }

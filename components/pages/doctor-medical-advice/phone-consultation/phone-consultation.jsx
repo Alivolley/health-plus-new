@@ -11,8 +11,9 @@ import { FiPhoneCall } from 'react-icons/fi';
 
 const filterBtnSx = { backgroundColor: '#4040400D', height: '40px', paddingX: '10px', borderRadius: '5px' };
 
-function PhoneConsultation({ onClose }) {
-   const [chosenPeriod, setChosenPeriod] = useState(10);
+function PhoneConsultation({ onClose, prices }) {
+   const [chosenPeriod, setChosenPeriod] = useState(prices?.[0]);
+
    return (
       <div className="p-[30px]">
          <div className="flex items-center justify-between">
@@ -44,32 +45,19 @@ function PhoneConsultation({ onClose }) {
          </div>
 
          <div className="mt-15 space-y-[10px]">
-            <Button fullWidth sx={filterBtnSx} onClick={() => setChosenPeriod(10)}>
-               <div className="flex w-full items-center justify-between text-textColor2">
-                  <p className="font-DanaFaNum text-sm font-bold" id="some">
-                     10 دقیقه . 145 هزار تومان
-                  </p>
-                  <span
-                     className={`size-[15px] rounded-full transition-all duration-200 ${chosenPeriod === 10 ? 'bg-primaryBlue' : 'bg-[#40404033]'}`}
-                  />
-               </div>
-            </Button>
-            <Button fullWidth sx={filterBtnSx} onClick={() => setChosenPeriod(15)}>
-               <div className="flex w-full items-center justify-between text-textColor2">
-                  <p className="font-DanaFaNum text-sm font-bold">15 دقیقه . 200 هزار تومان</p>
-                  <span
-                     className={`size-[15px] rounded-full transition-all duration-200 ${chosenPeriod === 15 ? 'bg-primaryBlue' : 'bg-[#40404033]'}`}
-                  />
-               </div>
-            </Button>
-            <Button fullWidth sx={filterBtnSx} onClick={() => setChosenPeriod(20)}>
-               <div className="flex w-full items-center justify-between text-textColor2">
-                  <p className="font-DanaFaNum text-sm font-bold">20 دقیقه . 290 هزار تومان</p>
-                  <span
-                     className={`size-[15px] rounded-full transition-all duration-200 ${chosenPeriod === 20 ? 'bg-primaryBlue' : 'bg-[#40404033]'}`}
-                  />
-               </div>
-            </Button>
+            {prices?.map(item => (
+               <Button fullWidth sx={filterBtnSx} onClick={() => setChosenPeriod(item)} key={item?.id}>
+                  <div className="flex w-full items-center justify-between text-textColor2">
+                     <p className="font-DanaFaNum text-sm font-bold" id="some">
+                        {item?.time} دقیقه . {item?.price} هزار تومان
+                     </p>
+                     <span
+                        className={`size-[15px] rounded-full transition-all duration-200 
+                           ${chosenPeriod?.id === item?.id ? 'bg-primaryBlue' : 'bg-[#40404033]'}`}
+                     />
+                  </div>
+               </Button>
+            ))}
          </div>
 
          <div className="mt-5">
@@ -85,7 +73,7 @@ function PhoneConsultation({ onClose }) {
                   fontWeight: '700',
                }}
             >
-               رزرو مشاوره تلفنی {chosenPeriod} دقیقه
+               رزرو مشاوره تلفنی {chosenPeriod?.time} دقیقه
             </Button>
          </div>
       </div>
