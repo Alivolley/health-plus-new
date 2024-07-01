@@ -43,6 +43,8 @@ async function DoctorMedicalAdvice({ params }) {
       })
    );
 
+   console.log(doctorDetailData);
+
    return (
       <div className="px-eighteen pb-[200px] customMd:px-[90px]">
          <div className="mx-auto max-w-[1260px]">
@@ -231,21 +233,23 @@ async function DoctorMedicalAdvice({ params }) {
                            </div>
                         </div>
 
-                        <Link href={`/doctor-appointment/${params?.doctorId}`} className="max-customMd:mt-[30px]">
-                           <Button
-                              variant="contained"
-                              className="max-customMd:w-full customMd:w-[135px]"
-                              sx={{
-                                 height: '40px',
-                                 borderRadius: '5px',
-                                 fontFamily: 'kalamehSemiBold600',
-                                 fontSize: '15px',
-                                 color: '#fff',
-                              }}
-                           >
-                              نوبت دهی
-                           </Button>
-                        </Link>
+                        {doctorDetailData?.data?.services_type?.['نوبت دهی مطب'] && (
+                           <Link href={`/doctor-appointment/${params?.doctorId}`} className="max-customMd:mt-[30px]">
+                              <Button
+                                 variant="contained"
+                                 className="max-customMd:w-full customMd:w-[135px]"
+                                 sx={{
+                                    height: '40px',
+                                    borderRadius: '5px',
+                                    fontFamily: 'kalamehSemiBold600',
+                                    fontSize: '15px',
+                                    color: '#fff',
+                                 }}
+                              >
+                                 نوبت دهی
+                              </Button>
+                           </Link>
+                        )}
                      </div>
                   </div>
 

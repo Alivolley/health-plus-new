@@ -20,7 +20,7 @@ const filterBtnStyle = {
    lineHeight: '12px',
 };
 
-function StatusButtons() {
+function StatusButtons({ aboutDetail, officeHints, medicalNumber }) {
    const [showOfficeStuffModal, setShowOfficeStuffModal] = useState(false);
    const [showAboutDoctorModal, setShowAboutDoctorModal] = useState(false);
 
@@ -59,11 +59,7 @@ function StatusButtons() {
                      <PiHandHeartBold color="#2ED7FE" size="20px" />
                      <p className="text-lg text-textColor3">ملاحضات مطب</p>
                   </div>
-                  <p className="mt-15 max-w-[450px] text-sm text-textColor2">
-                     متخصص کودکان و نوزادان دارای بورد تخصصی از دانشگاه شهید بهشتی و ... مشاوره در زمینه های زردی
-                     نوزادان ،تغذیه،ریفلاکس و کولیک وآلرژی... درمان بیماری‌های تنفسی ،گوارشی ،عفونی ... نوزادان
-                     ،تغذیه،ریفلاکس و کولیک وآلرژی... درمان بیماری‌های تنفسی ،گوارشی ،عفونی ...
-                  </p>
+                  <p className="mt-15 max-w-[450px] text-sm text-textColor2">{officeHints}</p>
                </div>
             </div>
          </Dialog>
@@ -86,12 +82,9 @@ function StatusButtons() {
                   </div>
                   <div className="mt-15 flex items-center gap-1 text-sm text-textColor2">
                      <p>شماره نظام پزشکی : </p>
-                     <p className="font-DanaFaNum font-bold">123456</p>
+                     <p className="font-DanaFaNum font-bold">{medicalNumber}</p>
                   </div>
-                  <p className="mt-[10px] max-w-[450px] text-sm text-textColor2">
-                     متخصص کودکان و نوزادان دارای بورد تخصصی از دانشگاه شهید بهشتی و ... مشاوره در زمینه های زردی
-                     نوزادان ،تغذیه،ریفلاکس و کولیک وآلرژی... درمان بیماری‌های تنفسی ،گوارشی ،عفونی ...
-                  </p>
+                  <p className="mt-[10px] max-w-[450px] text-sm text-textColor2">{aboutDetail}</p>
                </div>
             </div>
          </Dialog>
