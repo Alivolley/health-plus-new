@@ -3,7 +3,6 @@ import Link from 'next/link';
 
 // MUI
 import { Breadcrumbs, Button, Grid, IconButton } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
 
 // Icons
 import { IoLocation } from 'react-icons/io5';
@@ -12,7 +11,7 @@ import { FiPhoneCall } from 'react-icons/fi';
 import { Edit } from 'iconsax-react';
 import { BiHomeAlt } from 'react-icons/bi';
 import { PiPaperPlaneTiltLight } from 'react-icons/pi';
-import { MdOutlineWatchLater, MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import { MdOutlineWatchLater } from 'react-icons/md';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import { HiShieldCheck } from 'react-icons/hi2';
 import { LiaComment } from 'react-icons/lia';
@@ -23,8 +22,8 @@ import noProfilePic from '@/assets/images/noProfile.png';
 // Components
 import PhoneConsultation from '@/components/pages/doctor-medical-advice/phone-consultation/phone-consultation';
 import TextConsultation from '@/components/pages/doctor-medical-advice/text-consultation/text-consultation';
-import CommentItem from '@/components/template/comment-item/comment-item';
 import ConsultationMobileButtons from '@/components/pages/doctor-medical-advice/consultation-mobile-buttons/consultation-mobile-buttons';
+import DoctorComments from '@/components/template/doctor-comments/doctor-comments';
 
 async function DoctorMedicalAdvice({ params }) {
    const doctorDetailRequest = await fetch(
@@ -42,8 +41,6 @@ async function DoctorMedicalAdvice({ params }) {
          price: Number(doctorDetailData?.data?.counseling_prices?.[key]),
       })
    );
-
-   console.log(doctorDetailData);
 
    return (
       <div className="px-eighteen pb-[200px] customMd:px-[90px]">
@@ -344,28 +341,11 @@ async function DoctorMedicalAdvice({ params }) {
                         <div className="mt-[10px] text-center font-DanaFaNum text-15 font-bold leading-3 customMd:mt-5 customMd:text-xl customMd:leading-4">
                            <p className="text-[#FFAF03]">امتیاز {doctorDetailData?.data?.score}</p>
                            <p className="mt-[10px] text-[#4EE292] customMd:mt-5">
-                              از {doctorDetailData?.data?.score_count} امتیاز
+                              از {doctorDetailData?.data?.score_count} نظر
                            </p>
                         </div>
-                        <div className="mt-15 flex flex-col gap-[15px] customMd:mt-[30px] customMd:gap-[30px]">
-                           <CommentItem />
-                           <CommentItem />
-                           <CommentItem />
-                           <CommentItem />
-                           <CommentItem />
-                           <CommentItem />
-                           <CommentItem />
 
-                           <div className="flex justify-end">
-                              <LoadingButton
-                                 className="customMd:!text-15"
-                                 sx={{ fontSize: '10px' }}
-                                 endIcon={<MdOutlineKeyboardArrowDown />}
-                              >
-                                 نمایش نظرات بیشتر به کاربران
-                              </LoadingButton>
-                           </div>
-                        </div>
+                        <DoctorComments doctorId={params?.doctorId} />
                      </div>
                   </div>
                </div>

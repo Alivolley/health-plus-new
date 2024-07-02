@@ -2,17 +2,15 @@ import Link from 'next/link';
 
 // MUI
 import { Breadcrumbs } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
 
 // Icons
-import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 import { LiaComment } from 'react-icons/lia';
 
 // Components
 import MedicalAdviceAside from '@/components/pages/filter-medical-advice/medical-advice-aside/medical-advice-aside';
-import CommentItem from '@/components/template/comment-item/comment-item';
 import WeekDays from '@/components/pages/doctor-appointment/week-days/week-days';
 import MobileFilterButton from '@/components/pages/doctor-appointment/mobile-filter-button/mobile-filter-button';
+import DoctorComments from '@/components/template/doctor-comments/doctor-comments';
 
 async function DoctorAppointment({ params, searchParams }) {
    const doctorDetailRequest = await fetch(
@@ -104,25 +102,8 @@ async function DoctorAppointment({ params, searchParams }) {
                               از {doctorDetailData?.data?.score_count} نظر
                            </p>
                         </div>
-                        <div className="mt-15 flex flex-col gap-[15px] customMd:mt-[30px] customMd:gap-[30px]">
-                           <CommentItem />
-                           <CommentItem />
-                           <CommentItem />
-                           <CommentItem />
-                           <CommentItem />
-                           <CommentItem />
-                           <CommentItem />
 
-                           <div className="flex justify-end">
-                              <LoadingButton
-                                 className="customMd:!text-15"
-                                 sx={{ fontSize: '10px' }}
-                                 endIcon={<MdOutlineKeyboardArrowDown />}
-                              >
-                                 نمایش نظرات بیشتر به کاربران
-                              </LoadingButton>
-                           </div>
-                        </div>
+                        <DoctorComments doctorId={params?.doctorId} />
                      </div>
                   </div>
                </div>
