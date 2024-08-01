@@ -11,7 +11,7 @@ import Image from 'next/image';
 
 function HomeCounseling({ detail }) {
    return (
-      <div className="px-eighteen pb-[27px] pt-eighteen customMd:px-[90px] customMd:pb-[68px] customMd:pt-[45px]">
+      <div className="px-eighteen pb-[27px] pt-eighteen customMd:px-90 customMd:pb-[68px] customMd:pt-[45px]">
          <div className="mx-auto max-w-[1260px]">
             <div className="max-customMd:hidden">
                <p className="text-center text-[19px] text-textColor1">مشاوره با روانشناس</p>

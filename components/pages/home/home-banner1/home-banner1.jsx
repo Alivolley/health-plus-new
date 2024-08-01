@@ -12,7 +12,7 @@ import homeBannerCounseling from '@/assets/images/homeBannerCounseling.png';
 
 function HomeBanner1() {
    return (
-      <div className="px-eighteen customMd:px-[90px]">
+      <div className="px-eighteen customMd:px-90">
          <div className="mx-auto max-w-[1260px]">
             <img src={banner1Desktop.src} alt="banner" className="w-full max-customMd:hidden" />
             <img src={banner1Mobile.src} alt="banner" className="w-full customMd:hidden" />

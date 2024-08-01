@@ -58,7 +58,7 @@ async function AppointmentList({ searchParams }) {
                </p>
             </div>
 
-            <div className="mt-5 flex gap-[30px] customMd:mt-[120px]">
+            <div className="mt-5 flex gap-30 customMd:mt-[120px]">
                <aside className="h-fit w-[277px] shrink-0 rounded-10 border border-solid border-borderColor max-customLg:hidden">
                   <MedicalAdviceAside specialtyList={specialtyList} searchParams={searchParams} />
                </aside>
@@ -79,13 +79,13 @@ async function AppointmentList({ searchParams }) {
 
                      <SortingTabs searchParams={searchParams} />
                   </div>
-                  <div className="mt-15 space-y-[15px] customMd:mt-[30px] customMd:space-y-[30px]">
+                  <div className="mt-15 space-y-[15px] customMd:mt-30 customMd:space-y-30">
                      {doctorsData?.data?.map(item => (
                         <DoctorCard buttonsType={2} detail={item} key={item?.id} />
                      ))}
                   </div>
 
-                  <div className="mt-[30px] flex  justify-center customMd:mt-[60px] customMd:justify-end">
+                  <div className="mt-30 flex  justify-center customMd:mt-[60px] customMd:justify-end">
                      <PaginationComponent searchParams={searchParams} totalPage={doctorsData?.total_pages} />
                   </div>
                </div>

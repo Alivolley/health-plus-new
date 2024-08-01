@@ -11,7 +11,7 @@ import ArticleCard from '@/components/template/article-card/article-card';
 
 function NewestBlogs({ detail }) {
    return (
-      <div className="px-eighteen customMd:px-[90px]">
+      <div className="px-eighteen customMd:px-90">
          <div className="mx-auto mt-[27px] max-w-[1260px] customMd:mt-[67px]">
             <div className="max-customMd:hidden">
                <p className="text-center text-[19px] text-textColor1">مجله سلامت</p>

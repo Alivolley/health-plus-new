@@ -81,7 +81,7 @@ function MedicalAdviceAside({ onClose, specialtyList, searchParams, basePath }) 
    }, [searchParams]);
 
    return (
-      <div className="p-[30px]">
+      <div className="p-30">
          <div className="flex items-center justify-between">
             <div className="flex items-center gap-[10px]">
                <BsSliders color="#2ED7FE" size="26px" className="rotate-180" />
@@ -97,7 +97,7 @@ function MedicalAdviceAside({ onClose, specialtyList, searchParams, basePath }) 
             )}
          </div>
 
-         <div className="mt-[30px]">
+         <div className="mt-30">
             <p className="text-15 text-textColor1">فیلتر بر اساس</p>
             <div className="mt-[10px] space-y-[10px]">
                <Button fullWidth sx={filterBtnSx} onClick={() => setVisitType('مشاوره تلفنی')}>
@@ -136,7 +136,7 @@ function MedicalAdviceAside({ onClose, specialtyList, searchParams, basePath }) 
             </div>
          </div>
 
-         <div className="mt-[30px]">
+         <div className="mt-30">
             <p className="text-15 text-textColor1">فیلتر بر اساس بیمه</p>
             <div className="mt-[10px]">
                <Autocomplete
@@ -151,7 +151,7 @@ function MedicalAdviceAside({ onClose, specialtyList, searchParams, basePath }) 
             </div>
          </div>
 
-         <div className="mt-[30px]">
+         <div className="mt-30">
             <p className="text-15 text-textColor1">فیلتر بر اساس شهر</p>
             <div className="mt-[10px] flex flex-col gap-5">
                <Autocomplete
@@ -185,7 +185,7 @@ function MedicalAdviceAside({ onClose, specialtyList, searchParams, basePath }) 
             </div>
          </div>
 
-         <div className="mt-[30px]">
+         <div className="mt-30">
             <p className="text-15 text-textColor1">جنسیت پزشک</p>
             <div className="mt-[10px] space-y-[10px]">
                <Button fullWidth sx={filterBtnSx} onClick={() => setDoctorSex('male')}>
@@ -215,7 +215,7 @@ function MedicalAdviceAside({ onClose, specialtyList, searchParams, basePath }) 
             </div>
          </div>
 
-         <div className="mt-[30px]">
+         <div className="mt-30">
             <p className="text-15 text-textColor1">نام پزشک</p>
             <div className="mt-[10px]">
                <OutlinedInput
@@ -233,7 +233,7 @@ function MedicalAdviceAside({ onClose, specialtyList, searchParams, basePath }) 
             </div>
          </div>
 
-         <div className="mt-[30px]">
+         <div className="mt-30">
             <p className="text-15 text-textColor1">تخصص</p>
             <div className="mt-[10px]">
                <Autocomplete
@@ -248,7 +248,7 @@ function MedicalAdviceAside({ onClose, specialtyList, searchParams, basePath }) 
             </div>
          </div>
 
-         <div className="mt-[30px] flex items-center justify-between">
+         <div className="mt-30 flex items-center justify-between">
             <p className="text-15 text-textColor1">صدور نسخه الکترونیکی‌</p>
             <Switch value={electronic} onChange={(e, newValue) => setElectronic(newValue)} checked={electronic} />
          </div>

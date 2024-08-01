@@ -30,9 +30,13 @@ function AppLayout({ children }) {
                <LoadingComponent />
                <div>
                   <RtlProvider>
-                     {pathname !== '/login' && <Header />}
-                     <main className="mt-[135px] customMd:mt-[150px]">{children}</main>
-                     {pathname !== '/login' && <Footer />}
+                     {!pathname.startsWith('/doctor-panel') && <Header />}
+                     <main
+                        className={`${!pathname.startsWith('/doctor-panel') ? 'mt-[135px] customMd:mt-[150px]' : ''}`}
+                     >
+                        {children}
+                     </main>
+                     <Footer />
                   </RtlProvider>
                </div>
             </ThemeProvider>
