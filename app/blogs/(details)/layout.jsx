@@ -1,6 +1,11 @@
+import Image from 'next/image';
+
 // Components
 import BlogCard1 from '@/components/pages/blogs/blog-card-1/blog-card-1';
 import DetailMostVisitSwiper from '@/components/pages/blogs/detail-most-visit-swiper/detail-most-visit-swiper';
+
+// Assets
+import blogBanner3 from '@/assets/images/blogBanner3.png';
 
 // Utils
 import fetchDataHandler from '@/utils/fetchDataHandler';
@@ -16,7 +21,10 @@ async function layout({ children }) {
          <div className="mx-auto mt-[27px] max-w-[1260px] customMd:mt-[67px]">
             <section className="grid-cols-3 gap-x-30 customMd:grid">
                <aside className="order-2 shrink-0 max-customMd:hidden customMd:col-span-1">
-                  <div className="h-[170px] rounded-15 bg-primaryBlue customMd:h-[400px] customMd:rounded-[37px]" />
+                  <div className="h-[400px] rounded-[37px]">
+                     <Image src={blogBanner3} alt="banner" className="size-full rounded-[37px]" />
+                  </div>
+
                   <div className="mt-30">
                      <div className="basis-1/3 rounded-20 bg-primaryBlue/5 px-5 py-30">
                         <div className="mb-30 flex items-center justify-center border-b-2 border-solid border-primaryBlue pb-5">
