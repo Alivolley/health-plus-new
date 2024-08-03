@@ -26,8 +26,8 @@ function DropDownCategories({ detail }) {
                </div>
 
                <div
-                  className="invisible absolute inset-x-0 top-[61px] hidden pt-30 opacity-0 transition-all
-                  duration-400 group-hover:visible group-hover:opacity-100 customMd:block"
+                  className="invisible absolute inset-x-0 top-[61px] z-[2] hidden pt-30 opacity-0
+                  transition-all duration-400 group-hover:visible group-hover:opacity-100 customMd:block"
                >
                   <div
                      className="grid grid-cols-3 gap-x-9 gap-y-10 rounded-20 border
@@ -37,7 +37,7 @@ function DropDownCategories({ detail }) {
                      {detail?.['سلامت و پزشکی']?.map(item => (
                         <div key={item?.name} className="flex border-b-2 border-solid border-borderColor">
                            <Link
-                              href="/"
+                              href={`/blogs/categoryDetail/${item?.name}`}
                               className="-mb-0.5 border-b-2 border-solid border-borderColor/0 pb-2.5
                               text-xl text-textColor1 transition-all duration-200 hover:border-primaryBlue hover:text-primaryBlue"
                            >

@@ -24,7 +24,7 @@ async function AppointmentList({ searchParams }) {
    const specialtyList = specialtyData?.data?.map(item => ({ label: item?.name, id: item?.id }));
 
    return (
-      <div className="px-eighteen pb-[200px] customMd:px-[90px]">
+      <div className="px-eighteen pb-[200px] customMd:px-90">
          <div className="mx-auto max-w-[1260px]">
             <Breadcrumbs separator=">" className="max-customMd:hidden">
                {[
@@ -85,7 +85,7 @@ async function AppointmentList({ searchParams }) {
                      ))}
                   </div>
 
-                  <div className="mt-30 flex  justify-center customMd:mt-[60px] customMd:justify-end">
+                  <div className="mt-30 flex justify-center customMd:mt-[60px] customMd:justify-end">
                      <PaginationComponent searchParams={searchParams} totalPage={doctorsData?.total_pages} />
                   </div>
                </div>
